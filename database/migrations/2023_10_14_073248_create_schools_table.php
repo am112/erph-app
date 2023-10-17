@@ -23,7 +23,6 @@ return new class extends Migration
         });
 
         Schema::table('users', function(Blueprint $table){
-            $table->dropForeign(['school_id']);
             $table->foreignId('school_id')->nullable()->after('password')->constrained('schools')->nullOnDelete();
         });
     }
