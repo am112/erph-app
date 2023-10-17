@@ -1,0 +1,8 @@
+@php $wireModel = $attributes->get('wire:model');@endphp
+<div>
+    <input {{ $attributes }}
+        class="bg-gray-50 border @error($wireModel) border-red-500 @else border-gray-300 @enderror text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+    @error($wireModel)
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+    @enderror
+</div>
