@@ -10,7 +10,7 @@
         <li>
             <div class="flex items-center">
                 <x-heroicon-o-chevron-right class="w-4 h-4 text-gray-400 mx-1" />
-                <a href="{{ route('semester.kokurikulums.index', $semester) }}"
+                <a href="{{ route('semester.curriculum.index', $semester) }}"
                     class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">{{ __('Kalendar Aktiviti') }}</a>
             </div>
         </li>

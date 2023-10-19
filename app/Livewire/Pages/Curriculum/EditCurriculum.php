@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Livewire\Pages\Kokurikulum;
+namespace App\Livewire\Pages\Curriculum;
 
-use App\Models\KokurikulumUser;
 use App\Models\Semester;
+use App\Models\UserCurriculum;
 use App\Models\Week;
 use Filament\Forms;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -12,20 +12,20 @@ use Filament\Forms\Form;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
 
-class EditKokurikulum extends Component implements HasForms
+class EditCurriculum extends Component implements HasForms
 {
     use InteractsWithForms;
 
     public ?array $data = [];
 
-    public KokurikulumUser $record;
+    public UserCurriculum $record;
     public Semester $semester;
 
-    public function mount(KokurikulumUser $kokurikulum, Semester $semester): void
+    public function mount(UserCurriculum $curricula, Semester $semester): void
     {
         $this->semester = $semester;
-        $this->record = $kokurikulum;
-        $data = array_merge($this->record->attributesToArray(), ['accomplished' => ($kokurikulum->accomplished_at == null ? false : true)]);
+        $this->record = $curricula;
+        $data = array_merge($this->record->attributesToArray(), ['accomplished' => ($curricula->accomplished_at == null ? false : true)]);
         $this->form->fill($data);
     }   
 
@@ -75,6 +75,6 @@ class EditKokurikulum extends Component implements HasForms
 
     public function render(): View
     {
-        return view('pages.kokurikulum.edit');
+        return view('pages.curriculum.edit');
     }
 }

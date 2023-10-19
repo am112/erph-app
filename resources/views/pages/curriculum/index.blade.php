@@ -20,7 +20,7 @@
         <div class="flex justify-between items-center text-center">
             <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Kalendar Aktiviti') }}</h2>
             <x-ui.link-primary
-                href="{{ route('semester.kokurikulums.create', $semester) }}">{{ __('Kemaskini') }}</x-ui.link-primary>
+                href="{{ route('semester.curriculum.create', $semester) }}">{{ __('Kemaskini') }}</x-ui.link-primary>
         </div>
 
         @php
@@ -46,7 +46,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($kokurikulums as $item)
+                    @foreach ($curriculum as $item)
                         @if ($item->is_subitem)
                             <tr style="position: relative;"
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -56,10 +56,10 @@
                                 </th>
                                 @foreach ($weeks as $week)
                                     <td class=" text-center">
-                                        @foreach ($item->activities as $activity)
+                                        @foreach ($item->userCurriculum as $activity)
                                             @if ($week->id === $activity->week)
                                                 <span>
-                                                    <a href="{{ route('semester.kokurikulums.edit', ['semester' => $semester, 'kokurikulum' => $activity]) }}"
+                                                    <a href="{{ route('semester.curriculum.edit', ['semester' => $semester, 'curricula' => $activity]) }}"
                                                         class=" text-primary-500 ml-2 {{ $activity->accomplished_at != null ? ' bg-yellow-200 px-2 py-2 rounded' : '' }}">
                                                         {{ $activity->plan_started_at->format('d-M') }}
                                                     </a>

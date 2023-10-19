@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kokurikulum extends Model
+class Curricula extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
+    protected $table = 'curriculum';
 
-    public function activities(){
-        return $this->hasMany(KokurikulumUser::class);
+    public function userCurriculum(){
+        return $this->hasMany(UserCurriculum::class);
     }
 }

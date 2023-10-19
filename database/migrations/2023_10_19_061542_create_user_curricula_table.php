@@ -11,20 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kokurikulums', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->boolean('is_subitem')->default(false);
-            $table->integer('position')->default(0);
-            $table->unsignedBigInteger('parent_id')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
-        Schema::create('kokurikulum_user', function (Blueprint $table) {
+        Schema::create('user_curriculum', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('kokurikulum_id')->constrained('kokurikulums')->cascadeOnDelete();
+            $table->foreignId('curricula_id')->constrained('curriculum')->cascadeOnDelete();
             $table->foreignId('semester_id')->constrained('semesters')->cascadeOnDelete();            
             $table->date('plan_started_at')->nullable();
             $table->date('plan_ended_at')->nullable();
@@ -33,7 +23,6 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-
     }
 
     /**
@@ -41,7 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kokurikulum_user');
-        Schema::dropIfExists('kokurikulums');
+        Schema::dropIfExists('user_curriculum');
     }
 };

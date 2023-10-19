@@ -32,13 +32,13 @@
                     ],
                     [
                         'name' => __('Kalendar Aktiviti'),
-                        'link' => route('semester.kokurikulums.index', ['semester' => request()->semester]),
-                        'routeName' => 'semester.kokurikulums.index',
+                        'link' => route('semester.curriculum.index', ['semester' => request()->semester]),
+                        'routeName' => 'semester.curriculum.index',
                         'icon' => 'heroicon-s-home',
                         'subitems' => [],
                     ],
                     [
-                        'name' => __('Maklumat'),
+                        'name' => __('Profil'),
                         'link' => '#',
                         'routeName' => 'semester.dashboard',
                         'icon' => 'heroicon-s-user-group',

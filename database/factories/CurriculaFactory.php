@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Kokurikulum>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Curriculum>
  */
-class KokurikulumFactory extends Factory
+class CurriculaFactory extends Factory
 {
     /**
      * Define the model's default state.

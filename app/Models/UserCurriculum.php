@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class KokurikulumUser extends Model
+class UserCurriculum extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
-    protected $table = 'kokurikulum_user';
+    protected $table = 'user_curriculum';
 
     protected $casts = [
         'plan_started_at' => 'datetime:Y-m-d',
@@ -24,7 +24,7 @@ class KokurikulumUser extends Model
         return $this->belongsTo(Semester::class);
     }
 
-    public function kokurikulum(){
-        return $this->belongsTo(Kokurikulum::class);
+    public function curriculum(){
+        return $this->belongsTo(Curriculum::class);
     }
 }
