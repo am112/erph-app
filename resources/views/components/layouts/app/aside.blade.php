@@ -17,6 +17,27 @@
                         'subitems' => [],
                     ],
                     [
+                        'name' => __('Matlamat dan Objektif'),
+                        'link' => route('semester.objectives', ['semester' => request()->semester]),
+                        'routeName' => 'semester.objectives',
+                        'icon' => 'heroicon-s-home',
+                        'subitems' => [],
+                    ],
+                    [
+                        'name' => __('Takwim'),
+                        'link' => route('semester.takwim', ['semester' => request()->semester]),
+                        'routeName' => 'semester.takwim',
+                        'icon' => 'heroicon-s-home',
+                        'subitems' => [],
+                    ],
+                    [
+                        'name' => __('Kalendar Aktiviti'),
+                        'link' => route('semester.kokurikulums.index', ['semester' => request()->semester]),
+                        'routeName' => 'semester.kokurikulums.index',
+                        'icon' => 'heroicon-s-home',
+                        'subitems' => [],
+                    ],
+                    [
                         'name' => __('Maklumat'),
                         'link' => '#',
                         'routeName' => 'semester.dashboard',
@@ -35,6 +56,13 @@
                                 'icon' => 'heroicon-o-home',
                             ],
                         ],
+                    ],
+                    [
+                        'name' => __('Rancangan Pelajaran'),
+                        'link' => route('semester.dashboard', ['semester' => request()->semester]),
+                        'routeName' => 'semester.dashboards',
+                        'icon' => 'heroicon-s-home',
+                        'subitems' => [],
                     ],
                 ];
 

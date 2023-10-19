@@ -9,7 +9,7 @@
         </li>
     </x-layouts.app.breadcrumb>
 
-    <div
+    {{-- <div
         class="p-6 mt-6 max-w-4xl bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add a new product</h2>
 
@@ -24,7 +24,7 @@
 
         </form>
         <x-filament-actions::modals />
-    </div>
+    </div> --}}
 
 
     {{-- <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-4">
