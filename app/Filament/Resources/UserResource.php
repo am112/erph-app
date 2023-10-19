@@ -41,7 +41,7 @@ class UserResource extends Resource
                     ->maxLength(255)
                     ->dehydrateStateUsing(fn (string $state): string => Hash::make($state))    
                     ->hiddenOn('edit'),
-                Forms\COmponents\Select::make('role_id')
+                Forms\Components\Select::make('role_id')
                     ->label('Role')
                     ->options(Role::all()->pluck('name', 'id'))
                     ->searchable()
