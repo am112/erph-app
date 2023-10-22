@@ -70,6 +70,7 @@ class ListCourse extends Component implements HasForms, HasTable
                 ->url(fn (AnnualCoursePlan $record): string => route('semester.courses.edit', ['semester' => $this->semester, 'annualCourse' => $record])),
                 Tables\Actions\DeleteAction::make()
                 ->label('')
+                ->modalHeading('Padam Rancangan Tahunan')
                 ->requiresConfirmation()
                 ->action(fn (AnnualCoursePlan $record) => $record->delete()),
 
