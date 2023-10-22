@@ -1,5 +1,5 @@
 <aside
-    class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+    class="fixed top-0 left-0 z-30 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
     aria-label="Sidenav" id="drawer-navigation">
 
     <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
@@ -59,7 +59,7 @@
                     ],
                     [
                         'name' => __('Rancangan Pelajaran'),
-                        'link' => route('semester.dashboard', ['semester' => request()->semester]),
+                        'link' => route('semester.courses.index', ['semester' => request()->semester]),
                         'routeName' => 'semester.dashboards',
                         'icon' => 'heroicon-s-home',
                         'subitems' => [],
