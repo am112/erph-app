@@ -60,7 +60,7 @@
                                             @if ($week->id === $activity->week)
                                                 <span>
                                                     <a href="{{ route('semester.curriculum.edit', ['semester' => $semester, 'curricula' => $activity]) }}"
-                                                        class=" text-primary-500 ml-2 {{ $activity->accomplished_at != null ? ' bg-yellow-200 px-2 py-2 rounded' : '' }}">
+                                                        class="ml-2 text-xs uppercase font-semibold {{ $activity->accomplished_at != null ? ' bg-yellow-100 px-1 py-1 rounded border border-yellow-200 text-orange-600' : 'text-primary-500' }}">
                                                         {{ $activity->plan_started_at->format('d-M') }}
                                                     </a>
                                                 </span>

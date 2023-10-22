@@ -1,5 +1,5 @@
 <aside
-    class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+    class="fixed top-0 left-0 z-30 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
     aria-label="Sidenav" id="drawer-navigation">
 
     <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
@@ -20,21 +20,21 @@
                         'name' => __('Matlamat dan Objektif'),
                         'link' => route('semester.objectives', ['semester' => request()->semester]),
                         'routeName' => 'semester.objectives',
-                        'icon' => 'heroicon-s-home',
+                        'icon' => 'heroicon-s-globe-alt',
                         'subitems' => [],
                     ],
                     [
                         'name' => __('Takwim'),
                         'link' => route('semester.takwim', ['semester' => request()->semester]),
                         'routeName' => 'semester.takwim',
-                        'icon' => 'heroicon-s-home',
+                        'icon' => 'heroicon-m-book-open',
                         'subitems' => [],
                     ],
                     [
                         'name' => __('Kalendar Aktiviti'),
                         'link' => route('semester.curriculum.index', ['semester' => request()->semester]),
                         'routeName' => 'semester.curriculum.index',
-                        'icon' => 'heroicon-s-home',
+                        'icon' => 'heroicon-s-calendar-days',
                         'subitems' => [],
                     ],
                     [
@@ -59,9 +59,9 @@
                     ],
                     [
                         'name' => __('Rancangan Pelajaran'),
-                        'link' => route('semester.dashboard', ['semester' => request()->semester]),
-                        'routeName' => 'semester.dashboards',
-                        'icon' => 'heroicon-s-home',
+                        'link' => route('semester.courses.index', ['semester' => request()->semester]),
+                        'routeName' => 'semester.courses.index',
+                        'icon' => 'heroicon-m-academic-cap',
                         'subitems' => [],
                     ],
                 ];

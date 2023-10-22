@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\LogoutController;
+use App\Livewire\Pages\Courses\CreateCourse;
+use App\Livewire\Pages\Courses\EditCourse;
+use App\Livewire\Pages\Courses\ListCourse;
 use App\Livewire\Pages\Dashboard;
 use App\Livewire\Pages\Curriculum\CreateCurriculum;
 use App\Livewire\Pages\Curriculum\EditCurriculum;
@@ -32,7 +35,13 @@ Route::middleware(['auth', 'not.admin'])
     Route::get('/{semester}/curriculum', ListCurriculum::class)->name('semester.curriculum.index');
     Route::get('/{semester}/curriculum/create', CreateCurriculum::class)->name('semester.curriculum.create');
     Route::get('/{semester}/curriculum/{curricula}', EditCurriculum::class)->name('semester.curriculum.edit');
+
     Route::get('/{semester}/schools/create', CreateSchool::class)->name('semester.schools.create');
+
+    Route::get('/{semester}/courses', ListCourse::class)->name('semester.courses.index');
+    Route::get('/{semester}/courses/create', CreateCourse::class)->name('semester.courses.create');
+    Route::get('/{semester}/courses/{annualCourse}/edit', EditCourse::class)->name('semester.courses.edit');
+
 
     Route::get('/{semester}/staffs', ListStaff::class)->name('semester.staffs.index');
 
@@ -41,3 +50,10 @@ Route::middleware(['auth', 'not.admin'])
     Volt::route('/{semester}/objectives', 'objective.index')->name('semester.objectives');
     Volt::route('/{semester}/takwim', 'takwim.index')->name('semester.takwim');
 });
+
+// Route::get('month', function(){
+//     \Carbon\Carbon::setLocale('ms');
+//     $d = \Carbon\Carbon::parse('2023-01-01');
+//     // dd($d);
+//     dd($d->format('F'));
+// });
