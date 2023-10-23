@@ -1,8 +1,16 @@
 <aside
-    class="fixed top-0 left-0 z-30 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+    class="fixed top-0 left-0 z-40 w-64 h-screen pt-3 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
     aria-label="Sidenav" id="drawer-navigation">
-
-    <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
+    <a href="/" class=" mx-4 flex items-center justify-between mr-4">
+        {{-- <img
+                src="https://flowbite.s3.amazonaws.com/logo.svg"
+                class="mr-3 h-8"
+                alt="Flowbite Logo"
+              /> --}}
+        <span
+            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{{ config('app.name') }}</span>
+    </a>
+    <div class="overflow-y-auto py-8 px-3 h-full bg-white dark:bg-gray-800">
         <div class="pb-5 mb-0">
             <livewire:semester-select :semester="request()->semester?->id ?? App\Models\Semester::active()->first()->id" />
         </div>

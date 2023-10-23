@@ -1,5 +1,5 @@
 <nav
-    class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-40">
+    class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-30">
     <div class="flex flex-wrap justify-between items-center">
         <div class="flex justify-start items-center">
             <button data-drawer-target="drawer-navigation" data-drawer-toggle="drawer-navigation"
@@ -55,7 +55,7 @@
                 </div>
             </button>
             <!-- Dropdown menu -->
-            <div class="hidden z-50 my-4 w-56 text-base list-none bg-white divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
+            <div class="hidden z-40 my-4 w-56 text-base list-none bg-white divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
                 id="dropdown">
                 <div class="py-3 px-4">
                     <span
