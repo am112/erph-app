@@ -1,33 +1,60 @@
+<?php
+
+use Livewire\Volt\Component;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use App\Models\Curricula;
+use App\Models\Semester;
+use App\Models\Week;
+
+new class extends Component {
+    public Semester $semester;
+
+    public function mount(Semester $semester): void
+    {
+        $this->semester = $semester;
+    }
+
+    public function with(): array
+    {
+        $curriculum = Curricula::query()
+            ->with(['userCurriculum' => fn(Builder $query) => $query->where('user_id', auth()->user()->id)->where('semester_id', $this->semester->id)])
+            ->orderBy('position', 'ASC')
+            ->get();
+
+        return [
+            'curriculum' => $curriculum,
+            'weeks' => Week::all(),
+            'headerCount' => 0,
+        ];
+    }
+};
+
+?>
+
+
 <div>
-    <x-layouts.app.breadcrumb>
-        <li class="inline-flex items-center">
-            <a href="{{ route('semester.dashboard', $semester) }}"
-                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                <x-heroicon-s-home class="w-4 h-4 mr-2.5" />
-                {{ __('Halaman Utama') }}
-            </a>
-        </li>
-        <li aria-current="page">
-            <div class="flex items-center">
-                <x-heroicon-o-chevron-right class="w-4 h-4 text-gray-400 mx-1" />
-                <span
-                    class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">{{ __('Kalendar Aktiviti') }}</span>
-            </div>
-        </li>
-    </x-layouts.app.breadcrumb>
+    @php
+        $breadcrumb = [
+            [
+                'name' => __('Halaman Utama'),
+                'href' => route('semester.dashboard', $semester),
+                'icon' => 'heroicon-s-home',
+            ],
+            [
+                'name' => __('Kalendar Aktiviti'),
+                'href' => '',
+                'icon' => '',
+            ],
+        ];
+    @endphp
+    <x-layouts.app.breadcrumb :links="$breadcrumb" />
 
     <div class="p-6 mt-6 bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
         <div class="flex justify-between items-center text-center">
             <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Kalendar Aktiviti') }}</h2>
             <x-ui.link-primary
-                href="{{ route('semester.curriculum.create', $semester) }}">{{ __('Kemaskini') }}</x-ui.link-primary>
+                href="{{ route('semester.curriculum.create', $semester) }}">{{ __('Tambah') }}</x-ui.link-primary>
         </div>
-
-        @php
-            $weekCount = 48;
-            $headerCount = 0;
-
-        @endphp
 
         <div class="relative overflow-x-auto mt-8">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">

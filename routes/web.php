@@ -1,16 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LogoutController;
-use App\Livewire\Pages\Courses\CreateCourse;
-use App\Livewire\Pages\Courses\EditCourse;
-use App\Livewire\Pages\Courses\ListCourse;
-use App\Livewire\Pages\Dashboard;
-use App\Livewire\Pages\Curriculum\CreateCurriculum;
-use App\Livewire\Pages\Curriculum\EditCurriculum;
-use App\Livewire\Pages\Curriculum\ListCurriculum;
 use App\Livewire\Pages\Landing;
-use App\Livewire\Pages\School\CreateSchool;
-use App\Livewire\Pages\Staff\ListStaff;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -30,30 +21,22 @@ Volt::route('/login', 'auth.login')->middleware('guest')->name('login');
 
 Route::middleware(['auth', 'not.admin'])
 ->group(function(){
-    Route::middleware('active.semester')->get('/dashboard', Dashboard::class)->name('dashboard');
-    Route::get('/{semester}/dashboard', Dashboard::class)->name('semester.dashboard');
-    Route::get('/{semester}/curriculum', ListCurriculum::class)->name('semester.curriculum.index');
-    Route::get('/{semester}/curriculum/create', CreateCurriculum::class)->name('semester.curriculum.create');
-    Route::get('/{semester}/curriculum/{curricula}', EditCurriculum::class)->name('semester.curriculum.edit');
-
-    Route::get('/{semester}/schools/create', CreateSchool::class)->name('semester.schools.create');
-
-    Route::get('/{semester}/courses', ListCourse::class)->name('semester.courses.index');
-    Route::get('/{semester}/courses/create', CreateCourse::class)->name('semester.courses.create');
-    Route::get('/{semester}/courses/{annualCourse}/edit', EditCourse::class)->name('semester.courses.edit');
-
-
-    Route::get('/{semester}/staffs', ListStaff::class)->name('semester.staffs.index');
-
+    Route::middleware('active.semester')->get('/dashboard', fn()=> 'redirect')->name('dashboard');
     Route::post('logout', LogoutController::class)->name('logout'); 
+
+    Volt::route('/{semester}/dashboard', 'dashboard.index')->name('semester.dashboard');
 
     Volt::route('/{semester}/objectives', 'objective.index')->name('semester.objectives');
     Volt::route('/{semester}/takwim', 'takwim.index')->name('semester.takwim');
-});
 
-// Route::get('month', function(){
-//     \Carbon\Carbon::setLocale('ms');
-//     $d = \Carbon\Carbon::parse('2023-01-01');
-//     // dd($d);
-//     dd($d->format('F'));
-// });
+    Volt::route('/{semester}/curriculum', 'curriculum.index')->name('semester.curriculum.index');
+    Volt::route('/{semester}/curriculum/create', 'curriculum.create')->name('semester.curriculum.create');
+    Volt::route('/{semester}/curriculum/{curricula}', 'curriculum.edit')->name('semester.curriculum.edit');
+
+    Volt::route('/{semester}/schools/create', 'school.create')->name('semester.schools.create');
+    Volt::route('/{semester}/staffs', 'staff.index')->name('semester.staffs.index');
+
+    Volt::route('/{semester}/courses', 'courses.index')->name('semester.courses.index');
+    Volt::route('/{semester}/courses/create', 'courses.create')->name('semester.courses.create');
+    Volt::route('/{semester}/courses/{annualCourse}/edit', 'courses.edit')->name('semester.courses.edit');
+});

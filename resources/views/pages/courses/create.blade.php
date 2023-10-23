@@ -1,39 +1,135 @@
+<?php
+
+use Livewire\Volt\Component;
+use App\Models\AnnualCoursePlan;
+use App\Models\Course;
+use App\Models\Month;
+use App\Models\Semester;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
+use Filament\Forms;
+use Filament\Forms\Get;
+use Illuminate\Support\Facades\DB;
+use App\Http\Services\CourseService;
+
+new class extends Component implements HasForms {
+    use InteractsWithForms;
+    public Semester $semester;
+
+    public ?array $data = [];
+    public AnnualCoursePlan $record;
+
+    public function mount($semester): void
+    {
+        $this->semester = $semester;
+        $this->form->fill();
+    }
+
+    public function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Forms\Components\Select::make('month_id')
+                    ->label('Bulan')
+                    ->required()
+                    ->native(false)
+                    ->searchable()
+                    ->options(Month::all()->pluck('name', 'id')),
+                Forms\Components\Select::make('pillar_id')
+                    ->label('Tunjang')
+                    ->required()
+                    ->native(false)
+                    ->searchable()
+                    ->options(
+                        Course::select('id', DB::raw("concat(code, ' - ', name) as codename"))
+                            ->tunjang()
+                            ->get()
+                            ->pluck('codename', 'id'),
+                    ),
+                Forms\Components\Select::make('standard_contents_id')
+                    ->label('Standard Kandungan')
+                    ->required()
+                    ->multiple()
+                    ->native(false)
+                    ->searchable()
+                    ->options(
+                        fn(Get $get): array => Course::select('id', DB::raw("concat(code, ' - ', SUBSTRING(name, 1, 20)) as codename"))
+                            ->where('parent_id', $get('pillar_id'))
+                            ->whereNotNull('parent_id')
+                            ->get()
+                            ->pluck('codename', 'id')
+                            ->toArray(),
+                    ),
+
+                Forms\Components\Select::make('standard_lessons_id')
+                    ->label('Standard Pembelajaran')
+                    ->required()
+                    ->multiple()
+                    ->native(false)
+                    ->searchable()
+                    ->options(
+                        fn(Get $get): array => Course::whereIn('parent_id', $get('standard_contents_id'))
+                            ->whereNotNull('parent_id')
+                            ->get()
+                            ->pluck('code', 'id')
+                            ->toArray(),
+                    ),
+
+                Forms\Components\Textarea::make('description')
+                    ->label('Catatan')
+                    ->maxLength(255),
+            ])
+            ->statePath('data')
+            ->model($this->record ?? AnnualCoursePlan::class);
+    }
+
+    public function create(): void
+    {
+        $data = $this->form->getState();
+        (new CourseService($this->semester))->create($data);
+
+        $this->dispatch('toast', message: 'Data berjaya dikemaskini', data: ['position' => 'top-right', 'type' => 'success']);
+        $this->form->fill();
+    }
+};
+
+?>
+
 <div>
-    <x-layouts.app.breadcrumb>
-        <li class="inline-flex items-center">
-            <a href="{{ route('semester.dashboard', $semester) }}"
-                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                <x-heroicon-s-home class="w-4 h-4 mr-2.5" />
-                {{ __('Halaman Utama') }}
-            </a>
-        </li>
-        <li>
-            <div class="flex items-center">
-                <x-heroicon-o-chevron-right class="w-4 h-4 text-gray-400 mx-1" />
-                <a href="{{ route('semester.courses.index', $semester) }}"
-                    class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">{{ __('Rancangan Pelajaran Tahunan') }}</a>
-            </div>
-        </li>
-        <li aria-current="page">
-            <div class="flex items-center">
-                <x-heroicon-o-chevron-right class="w-4 h-4 text-gray-400 mx-1" />
-                <span
-                    class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">{{ __('Kemaskini') }}</span>
-            </div>
-        </li>
-    </x-layouts.app.breadcrumb>
+    @php
+        $breadcrumb = [
+            [
+                'name' => __('Halaman Utama'),
+                'href' => route('semester.dashboard', $semester),
+                'icon' => 'heroicon-s-home',
+            ],
+            [
+                'name' => __('Rancangan Pelajaran'),
+                'href' => route('semester.courses.index', $semester),
+                'icon' => 'heroicon-m-academic-cap',
+            ],
+            [
+                'name' => __('Tambah'),
+                'href' => '',
+                'icon' => '',
+            ],
+        ];
+    @endphp
+    <x-layouts.app.breadcrumb :links="$breadcrumb" />
+
 
     <div
         class="p-6 mt-6 max-w-4xl bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
-            {{ __('Kemaskini Rancangan Pelajaran Tahunan') }}</h2>
+            {{ __('Tambah Rancangan Pelajaran Tahunan') }}</h2>
 
         <form wire:submit="create">
             {{ $this->form }}
 
             <div class="mt-6">
                 <x-ui.button-primary type="submit">
-                    {{ __('Kemaskini') }}
+                    {{ __('Tambah') }}
                 </x-ui.button-primary>
             </div>
 

@@ -11,9 +11,9 @@
             display: none !important;
         }
     </style>
-    @filamentStyles
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    @filamentStyles
+    @vite('resources/css/app.css')
 
     <script data-navigate-once>
         // On page load or when changing themes, best to add inline in `head` to avoid FOUC
@@ -47,6 +47,7 @@
         @endpersist
     </div>
     @filamentScripts
+    @vite('resources/js/app.js')
 </body>
 
 </html>
