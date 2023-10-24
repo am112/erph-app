@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Enums\RegionTag;
 use App\Filament\Resources\RegionResource\Pages;
-use App\Filament\Resources\RegionResource\RelationManagers;
 use App\Models\Region;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -29,10 +28,10 @@ class RegionResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\COmponents\Select::make('tag')
+                Forms\Components\Select::make('tag')
                     ->required()
                     ->options(RegionTag::list()),
-                Forms\COmponents\Select::make('parent_id')
+                Forms\Components\Select::make('parent_id')
                     ->label('Negeri/Parliment')
                     ->options(Region::all()->pluck('name', 'id'))
                     ->searchable()
@@ -41,18 +40,6 @@ class RegionResource extends Resource
                     
             ]);
     }
-
-    // public function getCustomComponent(){
-    //     function(Region $model){
-    //         if($model->tag == RegionTag::STATE){
-    //             return Tables\Columns\TextColumn::make('Parliment')->default('-');
-    //         }
-    //         return Tables\Columns\TextColumn::make('ancestor.name')
-    //         ->label('State/Parliment')                    
-    //         ->searchable()
-    //         ->sortable();
-    //     }
-    // }
 
     public static function table(Table $table): Table
     {

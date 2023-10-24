@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $admin->assignRole(UserType::ADMIN);
         
         $this->call(WeekSeeder::class);
+        $this->call(MonthSeeder::class);
         \App\Models\Curricula::factory(10)->create();
 
         // \App\Models\User::factory(10)->create();
