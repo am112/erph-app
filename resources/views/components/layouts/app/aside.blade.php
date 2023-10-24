@@ -63,6 +63,12 @@
                                 'routeName' => 'profile.teachers.index',
                                 'icon' => 'heroicon-o-home',
                             ],
+                            [
+                                'name' => __('AJK'),
+                                'link' => route('profile.committees.index', ['semester' => request()->semester]),
+                                'routeName' => 'profile.committees.index',
+                                'icon' => 'heroicon-o-home',
+                            ],
                         ],
                     ],
                     [

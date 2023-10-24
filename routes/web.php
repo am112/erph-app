@@ -35,6 +35,9 @@ Route::middleware(['auth', 'not.admin'])
 
     Volt::route('/{semester}/profile/schools', 'schools.edit')->name('profile.schools.edit');
     Volt::route('/{semester}/profile/teachers', 'teachers.index')->name('profile.teachers.index');
+    Volt::route('/{semester}/profile/committees', 'committees.index')->name('profile.committees.index');
+    Volt::route('/{semester}/profile/committees/create', 'committees.create')->name('profile.committees.create');
+    Volt::route('/{semester}/profile/committees/{committee}/edit', 'committees.edit')->name('profile.committees.edit');
 
     Volt::route('/{semester}/courses', 'courses.index')->name('courses.index');
     Volt::route('/{semester}/courses/create', 'courses.create')->name('courses.create');
