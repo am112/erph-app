@@ -21,6 +21,11 @@ new class extends Component {
                 'href' => route('dashboard', $semester),
                 'icon' => 'heroicon-s-home',
             ],
+            [
+                'name' => __('PM / PPMS'),
+                'href' => '',
+                'icon' => '',
+            ],
         ];
     @endphp
     <x-layouts.app.breadcrumb :links="$breadcrumb" />

@@ -19,56 +19,56 @@
                 $routeList = [
                     [
                         'name' => __('Halaman Utama'),
-                        'link' => route('semester.dashboard', ['semester' => request()->semester]),
-                        'routeName' => 'semester.dashboard',
+                        'link' => route('dashboard', ['semester' => request()->semester]),
+                        'routeName' => 'dashboard',
                         'icon' => 'heroicon-s-home',
                         'subitems' => [],
                     ],
                     [
                         'name' => __('Matlamat dan Objektif'),
-                        'link' => route('semester.objectives', ['semester' => request()->semester]),
-                        'routeName' => 'semester.objectives',
+                        'link' => route('objectives', ['semester' => request()->semester]),
+                        'routeName' => 'objectives',
                         'icon' => 'heroicon-s-globe-alt',
                         'subitems' => [],
                     ],
                     [
                         'name' => __('Takwim'),
-                        'link' => route('semester.takwim', ['semester' => request()->semester]),
-                        'routeName' => 'semester.takwim',
+                        'link' => route('takwim', ['semester' => request()->semester]),
+                        'routeName' => 'takwim',
                         'icon' => 'heroicon-m-book-open',
                         'subitems' => [],
                     ],
                     [
                         'name' => __('Kalendar Aktiviti'),
-                        'link' => route('semester.curriculum.index', ['semester' => request()->semester]),
-                        'routeName' => 'semester.curriculum.index',
+                        'link' => route('curriculum.index', ['semester' => request()->semester]),
+                        'routeName' => 'curriculum',
                         'icon' => 'heroicon-s-calendar-days',
                         'subitems' => [],
                     ],
                     [
                         'name' => __('Profil'),
                         'link' => '#',
-                        'routeName' => 'semester.dashboard',
+                        'routeName' => 'profile',
                         'icon' => 'heroicon-s-user-group',
                         'subitems' => [
                             [
                                 'name' => __('Tabika'),
-                                'link' => route('semester.schools.create', ['semester' => request()->semester]),
-                                'routeName' => 'semester.schools.create',
+                                'link' => route('profile.schools.edit', ['semester' => request()->semester]),
+                                'routeName' => 'profile.schools.edit',
                                 'icon' => 'heroicon-o-home',
                             ],
                             [
                                 'name' => __('PM / PPMS'),
-                                'link' => route('semester.staffs.index', ['semester' => request()->semester]),
-                                'routeName' => 'semester.staffs.index',
+                                'link' => route('profile.teachers.index', ['semester' => request()->semester]),
+                                'routeName' => 'profile.teachers.index',
                                 'icon' => 'heroicon-o-home',
                             ],
                         ],
                     ],
                     [
                         'name' => __('Rancangan Pelajaran'),
-                        'link' => route('semester.courses.index', ['semester' => request()->semester]),
-                        'routeName' => 'semester.courses.index',
+                        'link' => route('courses.index', ['semester' => request()->semester]),
+                        'routeName' => 'courses',
                         'icon' => 'heroicon-m-academic-cap',
                         'subitems' => [],
                     ],
@@ -79,11 +79,7 @@
             @foreach ($routeList as $route)
                 @if (sizeOf($route['subitems']) == 0)
                     @php
-                        $activeClass = request()
-                            ->route()
-                            ->named($route['routeName'])
-                            ? 'text-primary-600 bg-gray-100 dark:bg-gray-700'
-                            : 'text-gray-600';
+                        $activeClass = strpos(Route::currentRouteName(), $route['routeName']) !== false ? 'text-primary-600 bg-gray-100 dark:bg-gray-700' : 'text-gray-600';
                     @endphp
                     <li>
                         <a href="{{ $route['link'] }}"
@@ -115,14 +111,10 @@
                             </svg>
                         </button>
                         <ul id="dropdown-pages-{{ $loop->index }}"
-                            class="{{ in_array(request()->route()->getName(),$subItemsRouteName->toArray())? '': 'hidden' }} py-2 space-y-2">
+                            class="{{ strpos(Route::currentRouteName(), $route['routeName']) !== false ? '' : 'hidden' }} py-2 space-y-2">
                             @foreach ($route['subitems'] as $subRoute)
                                 @php
-                                    $activeClass = request()
-                                        ->route()
-                                        ->named($subRoute['routeName'])
-                                        ? 'text-primary-600 bg-gray-100 dark:bg-gray-700'
-                                        : 'text-gray-600';
+                                    $activeClass = strpos(Route::currentRouteName(), $subRoute['routeName']) !== false ? 'text-primary-600 bg-gray-100 dark:bg-gray-700' : 'text-gray-600';
                                 @endphp
                                 <li>
                                     <a href="{{ $subRoute['link'] }}"
