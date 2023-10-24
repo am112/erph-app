@@ -26,7 +26,7 @@ new class extends Component implements HasForms, HasTable {
     public function table(Table $table): Table
     {
         return $table
-            ->query(AnnualCoursePlan::where('user_id', auth()->id())->where('semester_id', $this->semester->id))
+            ->query(AnnualCoursePlan::semester($this->semester->id))
             ->columns([
                 Tables\Columns\TextColumn::make('month_id')->hidden(true),
                 Tables\Columns\TextColumn::make('month.name')
