@@ -37,7 +37,7 @@ new class extends Component {
         $breadcrumb = [
             [
                 'name' => __('Halaman Utama'),
-                'href' => route('semester.dashboard', $semester),
+                'href' => route('dashboard', $semester),
                 'icon' => 'heroicon-s-home',
             ],
             [
@@ -52,8 +52,7 @@ new class extends Component {
     <div class="p-6 mt-6 bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
         <div class="flex justify-between items-center text-center">
             <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Kalendar Aktiviti') }}</h2>
-            <x-ui.link-primary
-                href="{{ route('semester.curriculum.create', $semester) }}">{{ __('Tambah') }}</x-ui.link-primary>
+            <x-ui.link-primary href="{{ route('curriculum.create', $semester) }}">{{ __('Tambah') }}</x-ui.link-primary>
         </div>
 
         <div class="relative overflow-x-auto mt-8">
@@ -86,7 +85,7 @@ new class extends Component {
                                         @foreach ($item->userCurriculum as $activity)
                                             @if ($week->id === $activity->week)
                                                 <span>
-                                                    <a href="{{ route('semester.curriculum.edit', ['semester' => $semester, 'curricula' => $activity]) }}"
+                                                    <a href="{{ route('curriculum.edit', ['semester' => $semester, 'curricula' => $activity]) }}"
                                                         class="ml-2 text-xs uppercase font-semibold {{ $activity->accomplished_at != null ? ' bg-yellow-100 px-1 py-1 rounded border border-yellow-200 text-orange-600' : 'text-primary-500' }}">
                                                         {{ $activity->plan_started_at->format('d-M') }}
                                                     </a>

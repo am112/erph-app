@@ -30,12 +30,16 @@ new class extends Component implements HasForms {
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('month_id')
-                    ->label('Bulan')
-                    ->required()
-                    ->native(false)
-                    ->searchable()
-                    ->options(Month::all()->pluck('name', 'id')),
+                Forms\Components\Group::make()->schema([
+                    Forms\Components\Grid::make(2)->schema([
+                        Forms\Components\Select::make('month_id')
+                            ->label('Bulan')
+                            ->required()
+                            ->native(false)
+                            ->searchable()
+                            ->options(Month::all()->pluck('name', 'id')),
+                    ]),
+                ]),
                 Forms\Components\Select::make('pillar_id')
                     ->label('Tunjang')
                     ->required()
@@ -47,35 +51,39 @@ new class extends Component implements HasForms {
                             ->get()
                             ->pluck('codename', 'id'),
                     ),
-                Forms\Components\Select::make('standard_contents_id')
-                    ->label('Standard Kandungan')
-                    ->required()
-                    ->multiple()
-                    ->native(false)
-                    ->searchable()
-                    ->options(
-                        fn(Get $get): array => Course::select('id', DB::raw("concat(code, ' - ', SUBSTRING(name, 1, 20)) as codename"))
-                            ->where('parent_id', $get('pillar_id'))
-                            ->whereNotNull('parent_id')
-                            ->get()
-                            ->pluck('codename', 'id')
-                            ->toArray(),
-                    ),
+                Forms\Components\Group::make()->schema([
+                    Forms\Components\Grid::make(2)->schema([
+                        Forms\Components\Select::make('standard_contents_id')
+                            ->label('Standard Kandungan')
+                            ->required()
+                            ->multiple()
+                            ->native(false)
+                            ->searchable()
+                            ->options(
+                                fn(Get $get): array => Course::query()
+                                    // ->select('id', DB::raw("concat(code, ' - ', SUBSTRING(name, 1, 20)) as codename"))
+                                    ->where('parent_id', $get('pillar_id'))
+                                    ->whereNotNull('parent_id')
+                                    ->get()
+                                    ->pluck('code', 'id')
+                                    ->toArray(),
+                            ),
 
-                Forms\Components\Select::make('standard_lessons_id')
-                    ->label('Standard Pembelajaran')
-                    ->required()
-                    ->multiple()
-                    ->native(false)
-                    ->searchable()
-                    ->options(
-                        fn(Get $get): array => Course::whereIn('parent_id', $get('standard_contents_id'))
-                            ->whereNotNull('parent_id')
-                            ->get()
-                            ->pluck('code', 'id')
-                            ->toArray(),
-                    ),
-
+                        Forms\Components\Select::make('standard_lessons_id')
+                            ->label('Standard Pembelajaran')
+                            ->required()
+                            ->multiple()
+                            ->native(false)
+                            ->searchable()
+                            ->options(
+                                fn(Get $get): array => Course::whereIn('parent_id', $get('standard_contents_id'))
+                                    ->whereNotNull('parent_id')
+                                    ->get()
+                                    ->pluck('code', 'id')
+                                    ->toArray(),
+                            ),
+                    ]),
+                ]),
                 Forms\Components\Textarea::make('description')
                     ->label('Catatan')
                     ->maxLength(255),
@@ -101,12 +109,12 @@ new class extends Component implements HasForms {
         $breadcrumb = [
             [
                 'name' => __('Halaman Utama'),
-                'href' => route('semester.dashboard', $semester),
+                'href' => route('dashboard', $semester),
                 'icon' => 'heroicon-s-home',
             ],
             [
                 'name' => __('Rancangan Pelajaran'),
-                'href' => route('semester.courses.index', $semester),
+                'href' => route('courses.index', $semester),
                 'icon' => 'heroicon-m-academic-cap',
             ],
             [
@@ -121,8 +129,13 @@ new class extends Component implements HasForms {
 
     <div
         class="p-6 mt-6 max-w-4xl bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
-        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
-            {{ __('Tambah Rancangan Pelajaran Tahunan') }}</h2>
+        <div class="mb-4 flex justify-between items-center">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+                {{ __('Tambah Rancangan Pelajaran Tahunan') }}</h2>
+            <div class="">
+                <livewire:modal-courses-list />
+            </div>
+        </div>
 
         <form wire:submit="create">
             {{ $this->form }}

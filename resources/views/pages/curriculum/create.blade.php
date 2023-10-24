@@ -41,23 +41,27 @@ new class extends Component implements HasForms {
                     ->native(false)
                     ->searchable()
                     ->options(Curricula::all()->pluck('name', 'id')),
-                Forms\Components\DatePicker::make('plan_started_at')
-                    ->label('Tarikh Mula Plan')
-                    ->required()
-                    ->native(false)
-                    ->closeOnDateSelection()
-                    ->suffixIcon('heroicon-s-calendar-days'),
-                Forms\Components\DatePicker::make('plan_ended_at')
-                    ->label('Tarikh Akhir Plan')
-                    ->native(false)
-                    ->closeOnDateSelection()
-                    ->suffixIcon('heroicon-s-calendar-days'),
-                Forms\Components\Select::make('week')
-                    ->label('Minggu')
-                    ->required()
-                    ->native(false)
-                    ->searchable()
-                    ->options(Week::all()->pluck('name', 'id')),
+                Forms\Components\Group::make()->schema([
+                    Forms\Components\Grid::make(3)->schema([
+                        Forms\Components\DatePicker::make('plan_started_at')
+                            ->label('Tarikh Mula Plan')
+                            ->required()
+                            ->native(false)
+                            ->closeOnDateSelection()
+                            ->suffixIcon('heroicon-s-calendar-days'),
+                        Forms\Components\DatePicker::make('plan_ended_at')
+                            ->label('Tarikh Akhir Plan')
+                            ->native(false)
+                            ->closeOnDateSelection()
+                            ->suffixIcon('heroicon-s-calendar-days'),
+                        Forms\Components\Select::make('week')
+                            ->label('Minggu')
+                            ->required()
+                            ->native(false)
+                            ->searchable()
+                            ->options(Week::all()->pluck('name', 'id')),
+                    ]),
+                ]),
             ])
             ->statePath('data')
             ->model(UserCurriculum::class);
@@ -70,12 +74,12 @@ new class extends Component implements HasForms {
         $breadcrumb = [
             [
                 'name' => __('Halaman Utama'),
-                'href' => route('semester.dashboard', $semester),
+                'href' => route('dashboard', $semester),
                 'icon' => 'heroicon-s-home',
             ],
             [
                 'name' => __('Kalendar Aktiviti'),
-                'href' => route('semester.curriculum.index', $semester),
+                'href' => route('curriculum.index', $semester),
                 'icon' => 'heroicon-s-calendar-days',
             ],
             [

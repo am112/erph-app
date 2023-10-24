@@ -12,7 +12,7 @@ class SchoolService{
         
     }
 
-    public function update(array $data, School $record): void
+    public function update(array $data, School|null $record): void
     {       
         if ($record == null) {
             $school = School::updateOrCreate(['code' => $data['code']], $data);

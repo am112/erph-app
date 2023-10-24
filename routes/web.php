@@ -21,22 +21,22 @@ Volt::route('/login', 'auth.login')->middleware('guest')->name('login');
 
 Route::middleware(['auth', 'not.admin'])
 ->group(function(){
-    Route::middleware('active.semester')->get('/dashboard', fn()=> 'redirect')->name('dashboard');
+    Route::middleware('active.semester')->get('/dashboard', fn()=> 'redirect')->name('dashboard.redirect');
     Route::post('logout', LogoutController::class)->name('logout'); 
 
-    Volt::route('/{semester}/dashboard', 'dashboard.index')->name('semester.dashboard');
+    Volt::route('/{semester}/dashboard', 'dashboard.index')->name('dashboard');
 
-    Volt::route('/{semester}/objectives', 'objective.index')->name('semester.objectives');
-    Volt::route('/{semester}/takwim', 'takwim.index')->name('semester.takwim');
+    Volt::route('/{semester}/objectives', 'objective.index')->name('objectives');
+    Volt::route('/{semester}/takwim', 'takwim.index')->name('takwim');
 
-    Volt::route('/{semester}/curriculum', 'curriculum.index')->name('semester.curriculum.index');
-    Volt::route('/{semester}/curriculum/create', 'curriculum.create')->name('semester.curriculum.create');
-    Volt::route('/{semester}/curriculum/{curricula}', 'curriculum.edit')->name('semester.curriculum.edit');
+    Volt::route('/{semester}/curriculum', 'curriculum.index')->name('curriculum.index');
+    Volt::route('/{semester}/curriculum/create', 'curriculum.create')->name('curriculum.create');
+    Volt::route('/{semester}/curriculum/{curricula}', 'curriculum.edit')->name('curriculum.edit');
 
-    Volt::route('/{semester}/schools/create', 'school.create')->name('semester.schools.create');
-    Volt::route('/{semester}/staffs', 'staff.index')->name('semester.staffs.index');
+    Volt::route('/{semester}/profile/schools', 'schools.edit')->name('profile.schools.edit');
+    Volt::route('/{semester}/profile/teachers', 'teachers.index')->name('profile.teachers.index');
 
-    Volt::route('/{semester}/courses', 'courses.index')->name('semester.courses.index');
-    Volt::route('/{semester}/courses/create', 'courses.create')->name('semester.courses.create');
-    Volt::route('/{semester}/courses/{annualCourse}/edit', 'courses.edit')->name('semester.courses.edit');
+    Volt::route('/{semester}/courses', 'courses.index')->name('courses.index');
+    Volt::route('/{semester}/courses/create', 'courses.create')->name('courses.create');
+    Volt::route('/{semester}/courses/{annualCourse}/edit', 'courses.edit')->name('courses.edit');
 });

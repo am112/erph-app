@@ -62,7 +62,7 @@ new class extends Component implements HasForms, HasTable {
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->label('')
-                    ->url(fn(AnnualCoursePlan $record): string => route('semester.courses.edit', ['semester' => $this->semester, 'annualCourse' => $record])),
+                    ->url(fn(AnnualCoursePlan $record): string => route('courses.edit', ['semester' => $this->semester, 'annualCourse' => $record])),
                 Tables\Actions\DeleteAction::make()
                     ->label('')
                     ->modalHeading('Padam Rancangan Tahunan')
@@ -79,7 +79,7 @@ new class extends Component implements HasForms, HasTable {
         $breadcrumb = [
             [
                 'name' => __('Halaman Utama'),
-                'href' => route('semester.dashboard', $semester),
+                'href' => route('dashboard', $semester),
                 'icon' => 'heroicon-s-home',
             ],
             [
@@ -96,7 +96,7 @@ new class extends Component implements HasForms, HasTable {
             <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Rancangan Pelajaran Tahunan') }}</h2>
             <div class="flex gap-2">
                 <x-ui.link-primary
-                    href="{{ route('semester.courses.create', $semester) }}">{{ __('Tambah') }}</x-ui.link-primary>
+                    href="{{ route('courses.create', $semester) }}">{{ __('Tambah') }}</x-ui.link-primary>
 
             </div>
         </div>

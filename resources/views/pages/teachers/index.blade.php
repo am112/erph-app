@@ -18,7 +18,7 @@ new class extends Component {
         $breadcrumb = [
             [
                 'name' => __('Halaman Utama'),
-                'href' => route('semester.dashboard', $semester),
+                'href' => route('dashboard', $semester),
                 'icon' => 'heroicon-s-home',
             ],
             [

@@ -37,24 +37,34 @@ new class extends Component implements HasForms {
     {
         return $form
             ->schema([
-                Forms\Components\DatePicker::make('plan_started_at')
-                    ->label('Tarikh Mula Plan')
-                    ->required(true)
-                    ->native(false)
-                    ->closeOnDateSelection()
-                    ->suffixIcon('heroicon-s-calendar-days'),
-                Forms\Components\DatePicker::make('plan_ended_at')
-                    ->label('Tarikh Akhir Plan')
-                    ->required(false)
-                    ->native(false)
-                    ->closeOnDateSelection()
-                    ->suffixIcon('heroicon-s-calendar-days'),
-                Forms\Components\Select::make('week')
-                    ->label('Minggu')
-                    ->required(true)
+                Forms\Components\Select::make('curricula_id')
+                    ->label('Kokurikulum')
+                    ->disabled()
                     ->native(false)
                     ->searchable()
-                    ->options(Week::all()->pluck('name', 'id')),
+                    ->options(Curricula::all()->pluck('name', 'id')),
+                Forms\Components\Group::make()->schema([
+                    Forms\Components\Grid::make(3)->schema([
+                        Forms\Components\DatePicker::make('plan_started_at')
+                            ->label('Tarikh Mula Plan')
+                            ->disabled()
+                            ->native(false)
+                            ->closeOnDateSelection()
+                            ->suffixIcon('heroicon-s-calendar-days'),
+                        Forms\Components\DatePicker::make('plan_ended_at')
+                            ->label('Tarikh Akhir Plan')
+                            ->disabled()
+                            ->native(false)
+                            ->closeOnDateSelection()
+                            ->suffixIcon('heroicon-s-calendar-days'),
+                        Forms\Components\Select::make('week')
+                            ->label('Minggu')
+                            ->disabled()
+                            ->native(false)
+                            ->searchable()
+                            ->options(Week::all()->pluck('name', 'id')),
+                    ]),
+                ]),
                 Forms\Components\Toggle::make('accomplished')->label('Terlaksana'),
             ])
             ->statePath('data')
@@ -68,12 +78,12 @@ new class extends Component implements HasForms {
         $breadcrumb = [
             [
                 'name' => __('Halaman Utama'),
-                'href' => route('semester.dashboard', $semester),
+                'href' => route('dashboard', $semester),
                 'icon' => 'heroicon-s-home',
             ],
             [
                 'name' => __('Kalendar Aktiviti'),
-                'href' => route('semester.curriculum.index', $semester),
+                'href' => route('curriculum.index', $semester),
                 'icon' => 'heroicon-s-calendar-days',
             ],
             [

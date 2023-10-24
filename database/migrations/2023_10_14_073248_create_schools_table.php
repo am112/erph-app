@@ -11,13 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('schools');
 
         Schema::create('schools', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('code')->unique();
             $table->string('address')->nullable();
+            $table->string('region')->nullable();
+            $table->string('postcode')->nullable();
+            $table->unsignedBigInteger('state_id')->nullable();
+            $table->unsignedBigInteger('parliment_id')->nullable();
+            $table->unsignedBigInteger('dun_id')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('established_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
