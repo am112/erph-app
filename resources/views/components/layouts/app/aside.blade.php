@@ -54,19 +54,19 @@
                             [
                                 'name' => __('Tabika'),
                                 'link' => route('profile.schools.edit', ['semester' => request()->semester]),
-                                'routeName' => 'profile.schools.edit',
+                                'routeName' => 'profile.schools',
                                 'icon' => 'heroicon-o-home',
                             ],
                             [
                                 'name' => __('PM / PPMS'),
                                 'link' => route('profile.teachers.index', ['semester' => request()->semester]),
-                                'routeName' => 'profile.teachers.index',
+                                'routeName' => 'profile.teachers',
                                 'icon' => 'heroicon-o-home',
                             ],
                             [
                                 'name' => __('AJK'),
                                 'link' => route('profile.committees.index', ['semester' => request()->semester]),
-                                'routeName' => 'profile.committees.index',
+                                'routeName' => 'profile.committees',
                                 'icon' => 'heroicon-o-home',
                             ],
                         ],

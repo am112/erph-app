@@ -35,9 +35,10 @@ Route::middleware(['auth', 'not.admin'])
 
     Volt::route('/{semester}/profile/schools', 'schools.edit')->name('profile.schools.edit');
     
-    Volt::route('/{semester}/profile/teachers', 'teachers.index')->name('profile.teachers.index');
-    Volt::route('/{semester}/profile/teachers/create', 'teachers.create')->name('profile.teachers.create');
-    Volt::route('/{semester}/profile/teachers/create/{teacher}/edit', 'teachers.edit')->name('profile.teachers.edit');
+    Volt::route('/{semester}/profile/teachers', App\Livewire\Teacher\Views\Pages\ListTeacher::class)->name('profile.teachers.index');
+    Volt::route('/{semester}/profile/teachers/create', App\Livewire\Teacher\Views\Pages\CreateTeacher::class)->name('profile.teachers.create');
+    Volt::route('/{semester}/profile/teachers/{teacher}/edit', App\Livewire\Teacher\Views\Pages\EditTeacher::class)->name('profile.teachers.edit');
+    Volt::route('/{semester}/profile/teachers/{teacher}/activities', App\Livewire\Teacher\Views\Pages\TeacherActivities::class)->name('profile.teachers.activities.index');
 
     Volt::route('/{semester}/profile/committees', 'committees.index')->name('profile.committees.index');
     Volt::route('/{semester}/profile/committees/create', 'committees.create')->name('profile.committees.create');
