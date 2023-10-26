@@ -1,6 +1,7 @@
 <?php
 
-use Livewire\Volt\Component;
+namespace App\Livewire\School\Views\Pages;
+
 use App\Models\School;
 use App\Models\Semester;
 use App\Models\Region;
@@ -11,14 +12,15 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\SchoolService;
+use Livewire\Component;
 
-new class extends Component implements HasForms {
+class EditSchool extends Component implements HasForms {
     use InteractsWithForms;
 
     public Semester $semester;
+    public School $record;
 
     public ?array $data = [];
-    public $record;
 
     public function mount($semester): void
     {
@@ -28,6 +30,29 @@ new class extends Component implements HasForms {
             $this->record = Auth::user()->school;
             $this->form->fill($this->record->attributesToArray());
         }
+    }
+
+    public function render()
+    {
+        return view('pages.schools.edit-school', [
+            'breadcrumb' => $this->breadcrumb(),
+        ]);
+    }
+
+    public function breadcrumb() : array
+    {
+        return [
+            [
+                'name' => __('Halaman Utama'),
+                'href' => route('dashboard', $this->semester),
+                'icon' => 'heroicon-s-home',
+            ],
+            [
+                'name' => __('Tabika'),
+                'href' => '',
+                'icon' => '',
+            ],
+        ];
     }
 
     public function form(Form $form): Form
@@ -129,41 +154,4 @@ new class extends Component implements HasForms {
             $this->dispatch('toast', message: 'Kesilapan! Sila cuba lagi.', data: ['position' => 'top-right', 'type' => 'danger']);
         }
     }
-};
-
-?>
-
-<div>
-    @php
-        $breadcrumb = [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('Tabika'),
-                'href' => '',
-                'icon' => '',
-            ],
-        ];
-    @endphp
-    <x-layouts.app.breadcrumb :links="$breadcrumb" />
-
-    <div
-        class="p-6 mt-6 max-w-4xl bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
-        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">{{ __('Kemaskini Maklumat Tabika') }}</h2>
-
-        <form wire:submit="create">
-            {{ $this->form }}
-
-            <div class="mt-6">
-                <x-ui.button-primary type="submit">
-                    {{ __('Kemaskini') }}
-                </x-ui.button-primary>
-            </div>
-
-        </form>
-        <x-filament-actions::modals />
-    </div>
-</div>
+}

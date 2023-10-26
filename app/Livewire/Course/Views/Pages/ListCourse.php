@@ -1,18 +1,21 @@
 <?php
 
-use Livewire\Volt\Component;
+namespace App\Livewire\Course\Views\Pages;
+
 use App\Models\AnnualCoursePlan;
 use App\Models\Month;
 use App\Models\Semester;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
+use Livewire\Component;
 
-new class extends Component implements HasForms, HasTable {
+class ListCourse extends Component implements HasForms, HasTable {
     use InteractsWithForms;
     use InteractsWithTable;
 
@@ -21,6 +24,29 @@ new class extends Component implements HasForms, HasTable {
     public function mount(Semester $semester): void
     {
         $this->semester = $semester;
+    }
+
+    public function render()
+    {
+        return view('pages.courses.list-course', [
+            'breadcrumb' => $this->breadcrumb(),
+        ]);
+    }
+
+    public function breadcrumb() : array
+    {
+        return [
+            [
+                'name' => __('Halaman Utama'),
+                'href' => route('dashboard', $this->semester),
+                'icon' => 'heroicon-s-home',
+            ],
+            [
+                'name' => __('Rancangan Pelajaran'),
+                'href' => '',
+                'icon' => '',
+            ],
+        ];
     }
 
     public function table(Table $table): Table
@@ -59,10 +85,19 @@ new class extends Component implements HasForms, HasTable {
                     ->native(false)
                     ->options(Month::all()->pluck('name', 'id')),
             ])
+            ->headerActions([
+                Action::make('Add')
+                ->label('Tambah')
+                ->after(function(Component $livewire){
+                    $livewire->redirect(route('courses.create', $this->semester));
+                }),
+            ])
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->label('')
-                    ->url(fn(AnnualCoursePlan $record): string => route('courses.edit', ['semester' => $this->semester, 'annualCourse' => $record])),
+                    ->after(function(Component $livewire, AnnualCoursePlan $record){
+                        $livewire->redirect(route('courses.edit', ['semester' => $this->semester, 'annualCourse' => $record]), false);
+                    }),
                 Tables\Actions\DeleteAction::make()
                     ->label('')
                     ->modalHeading('Padam Rancangan Tahunan')
@@ -71,40 +106,4 @@ new class extends Component implements HasForms, HasTable {
             ])
             ->defaultSort('month_id', 'ASC');
     }
-};
-?>
-
-<div>
-    @php
-        $breadcrumb = [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('Rancangan Pelajaran'),
-                'href' => '',
-                'icon' => '',
-            ],
-        ];
-    @endphp
-    <x-layouts.app.breadcrumb :links="$breadcrumb" />
-
-    <div class="p-6 mt-6 bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
-        <div class="flex justify-between items-center text-center mb-8">
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Rancangan Pelajaran Tahunan') }}</h2>
-            <div class="flex gap-2">
-                <x-ui.link-primary
-                    href="{{ route('courses.create', $semester) }}">{{ __('Tambah') }}</x-ui.link-primary>
-
-            </div>
-        </div>
-        <div>
-            {{ $this->table }}
-        </div>
-        <div class="flex justify-end mt-4">
-            <livewire:modal-courses-list />
-        </div>
-    </div>
-</div>
+}

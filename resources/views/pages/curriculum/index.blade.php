@@ -49,9 +49,10 @@ new class extends Component {
     @endphp
     <x-layouts.app.breadcrumb :links="$breadcrumb" />
 
-    <div class="p-6 mt-6 bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
+    <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Kalendar Aktiviti') }}</h2>
+    <div class="p-6 mt-5 bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
         <div class="flex justify-between items-center text-center">
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Kalendar Aktiviti') }}</h2>
+            <div></div>
             <x-ui.link-primary href="{{ route('curriculum.create', $semester) }}">{{ __('Tambah') }}</x-ui.link-primary>
         </div>
 

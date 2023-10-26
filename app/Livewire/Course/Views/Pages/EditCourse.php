@@ -1,6 +1,7 @@
 <?php
 
-use Livewire\Volt\Component;
+namespace App\Livewire\Course\Views\Pages;
+
 use App\Models\AnnualCoursePlan;
 use App\Models\Course;
 use App\Models\Month;
@@ -12,15 +13,16 @@ use Filament\Forms;
 use Filament\Forms\Get;
 use Illuminate\Support\Facades\DB;
 use App\Http\Services\CourseService;
+use Livewire\Component;
 
-new class extends Component implements HasForms {
+class EditCourse extends Component implements HasForms {
     use InteractsWithForms;
     public Semester $semester;
     public AnnualCoursePlan $record;
 
     public ?array $data = [];
 
-    public function mount(Semester $semester, AnnualCoursePlan $annualCourse): void
+     public function mount(Semester $semester, AnnualCoursePlan $annualCourse): void
     {
         $this->semester = $semester;
         $this->record = $annualCourse;
@@ -29,6 +31,34 @@ new class extends Component implements HasForms {
         $data['standard_contents_id'] = $this->record->standardContents->pluck('id')->toArray();
         $data['standard_lessons_id'] = $this->record->standardLessons->pluck('id')->toArray();
         $this->form->fill($data);
+    }
+
+    public function render()
+    {
+        return view('pages.courses.edit-course', [
+            'breadcrumb' => $this->breadcrumb(),
+        ]);
+    }
+
+    public function breadcrumb() : array
+    {
+        return [
+            [
+                'name' => __('Halaman Utama'),
+                'href' => route('dashboard', $this->semester),
+                'icon' => 'heroicon-s-home',
+            ],
+            [
+                'name' => __('Rancangan Pelajaran'),
+                'href' => route('courses.index', $this->semester),
+                'icon' => 'heroicon-m-academic-cap',
+            ],
+            [
+                'name' => __('Kemaskini'),
+                'href' => '',
+                'icon' => '',
+            ],
+        ];
     }
 
     public function form(Form $form): Form
@@ -94,64 +124,15 @@ new class extends Component implements HasForms {
                     ->maxLength(255),
             ])
             ->statePath('data')
-            ->model($this->record);
+            ->model($this->record ?? AnnualCoursePlan::class);
     }
 
-    public function edit(): void
+    public function create(): void
     {
         $data = $this->form->getState();
-        (new CourseService($this->semester))->update($data, $this->record);
+        (new CourseService($this->semester))->create($data);
 
         $this->dispatch('toast', message: 'Data berjaya dikemaskini', data: ['position' => 'top-right', 'type' => 'success']);
+        $this->form->fill();
     }
-};
-
-?>
-
-<div>
-
-    @php
-        $breadcrumb = [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('Rancangan Pelajaran'),
-                'href' => route('courses.index', $semester),
-                'icon' => 'heroicon-m-academic-cap',
-            ],
-            [
-                'name' => __('Kemaskini'),
-                'href' => '',
-                'icon' => '',
-            ],
-        ];
-    @endphp
-    <x-layouts.app.breadcrumb :links="$breadcrumb" />
-
-
-    <div
-        class="p-6 mt-6 max-w-4xl bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
-        <div class="mb-4 flex justify-between items-center">
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white">
-                {{ __('Kemaskini Rancangan Pelajaran Tahunan') }}</h2>
-            <div class="">
-                <livewire:modal-courses-list />
-            </div>
-        </div>
-
-        <form wire:submit="edit">
-            {{ $this->form }}
-
-            <div class="mt-6">
-                <x-ui.button-primary type="submit">
-                    {{ __('Kemaskini') }}
-                </x-ui.button-primary>
-            </div>
-        </form>
-
-        <x-filament-actions::modals />
-    </div>
-</div>
+}

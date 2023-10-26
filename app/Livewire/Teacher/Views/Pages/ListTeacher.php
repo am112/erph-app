@@ -91,7 +91,9 @@ class ListTeacher extends Component implements HasForms, HasTable
     protected function getTableColumnActions(): array
     {
         return [
-            Tables\Actions\Action::make('Kegiatan Sosial')
+            Tables\Actions\Action::make('social')
+                ->label('Kegiatan Sosial')
+                ->icon('heroicon-o-clipboard-document-list')
                 ->url(fn(Teacher $record): string => route('profile.teachers.activities.index', ['semester' => $this->semester, 'teacher' => $record]))
                 ->hidden(fn(Teacher $record): bool => $record->type !== 'PM'),
             Tables\Actions\EditAction::make()

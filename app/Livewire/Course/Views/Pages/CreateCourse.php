@@ -1,6 +1,7 @@
 <?php
 
-use Livewire\Volt\Component;
+namespace App\Livewire\Course\Views\Pages;
+
 use App\Models\AnnualCoursePlan;
 use App\Models\Course;
 use App\Models\Month;
@@ -12,8 +13,9 @@ use Filament\Forms;
 use Filament\Forms\Get;
 use Illuminate\Support\Facades\DB;
 use App\Http\Services\CourseService;
+use Livewire\Component;
 
-new class extends Component implements HasForms {
+class CreateCourse extends Component implements HasForms {
     use InteractsWithForms;
     public Semester $semester;
 
@@ -24,6 +26,34 @@ new class extends Component implements HasForms {
     {
         $this->semester = $semester;
         $this->form->fill();
+    }
+
+    public function render()
+    {
+        return view('pages.courses.create-course', [
+            'breadcrumb' => $this->breadcrumb(),
+        ]);
+    }
+
+    public function breadcrumb() : array
+    {
+        return [
+            [
+                'name' => __('Halaman Utama'),
+                'href' => route('dashboard', $this->semester),
+                'icon' => 'heroicon-s-home',
+            ],
+            [
+                'name' => __('Rancangan Pelajaran'),
+                'href' => route('courses.index', $this->semester),
+                'icon' => 'heroicon-m-academic-cap',
+            ],
+            [
+                'name' => __('Tambah'),
+                'href' => '',
+                'icon' => '',
+            ],
+        ];
     }
 
     public function form(Form $form): Form
@@ -100,53 +130,4 @@ new class extends Component implements HasForms {
         $this->dispatch('toast', message: 'Data berjaya dikemaskini', data: ['position' => 'top-right', 'type' => 'success']);
         $this->form->fill();
     }
-};
-
-?>
-
-<div>
-    @php
-        $breadcrumb = [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('Rancangan Pelajaran'),
-                'href' => route('courses.index', $semester),
-                'icon' => 'heroicon-m-academic-cap',
-            ],
-            [
-                'name' => __('Tambah'),
-                'href' => '',
-                'icon' => '',
-            ],
-        ];
-    @endphp
-    <x-layouts.app.breadcrumb :links="$breadcrumb" />
-
-
-    <div
-        class="p-6 mt-6 max-w-4xl bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
-        <div class="mb-4 flex justify-between items-center">
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white">
-                {{ __('Tambah Rancangan Pelajaran Tahunan') }}</h2>
-            <div class="">
-                <livewire:modal-courses-list />
-            </div>
-        </div>
-
-        <form wire:submit="create">
-            {{ $this->form }}
-
-            <div class="mt-6">
-                <x-ui.button-primary type="submit">
-                    {{ __('Tambah') }}
-                </x-ui.button-primary>
-            </div>
-
-        </form>
-        <x-filament-actions::modals />
-    </div>
-</div>
+}

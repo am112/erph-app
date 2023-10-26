@@ -3,7 +3,7 @@
 
     <div>
         <div class="flex justify-between items-center text-center mb-5">
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('PM / PPMS') }}</h2>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Ahli Jawatankuasa') }}</h2>
         </div>
         <div>
             {{ $this->table }}
