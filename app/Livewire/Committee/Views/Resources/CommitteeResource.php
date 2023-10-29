@@ -3,6 +3,7 @@
 namespace App\Livewire\Committee\Views\Resources;
 
 use App\Models\Committee;
+use App\Models\Semester;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
@@ -17,7 +18,7 @@ use Livewire\Component;
 
 class CommitteeResource{
 
-    public static function table(Table $table): Table{
+    public static function table(Table $table, Semester $semester): Table{
         return $table
             ->query(Committee::query())
             ->columns([
@@ -49,6 +50,11 @@ class CommitteeResource{
                 ->closeModalByClickingAway(false)
                 ->model(Committee::class)
                 ->form(CommitteeResource::getFormColumn())
+                ->mutateFormDataUsing(function (array $data) use($semester) : array {
+                    $data['user_id'] = auth()->id();
+                    $data['semester_id'] = $semester->id;
+                    return $data;
+                })
                 ->after(function(Component $livewire){
                     $livewire->dispatch('toast', message: 'Data berjaya dikemaskini', data: ['position' => 'top-right', 'type' => 'success']);
                 }), 

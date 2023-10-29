@@ -47,6 +47,6 @@ class ListCommitee extends Component implements HasForms, HasTable {
 
     public function table(Table $table): Table
     {
-        return CommitteeResource::table($table);
+        return CommitteeResource::table($table, $this->semester);
     }
 }

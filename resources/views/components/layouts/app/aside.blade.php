@@ -69,6 +69,12 @@
                                 'routeName' => 'profile.committees',
                                 'icon' => 'heroicon-o-home',
                             ],
+                            [
+                                'name' => __('Kanak Kanak'),
+                                'link' => route('profile.students.index', ['semester' => request()->semester]),
+                                'routeName' => 'profile.students',
+                                'icon' => 'heroicon-o-home',
+                            ],
                         ],
                     ],
                     [

@@ -29,9 +29,9 @@ Route::middleware(['auth', 'not.admin'])
     Volt::route('/{semester}/objectives', 'objective.index')->name('objectives');
     Volt::route('/{semester}/takwim', 'takwim.index')->name('takwim');
 
-    Volt::route('/{semester}/curriculum', 'curriculum.index')->name('curriculum.index');
-    Volt::route('/{semester}/curriculum/create', 'curriculum.create')->name('curriculum.create');
-    Volt::route('/{semester}/curriculum/{curricula}', 'curriculum.edit')->name('curriculum.edit');
+    Route::get('/{semester}/curriculum', App\Livewire\Curricula\Views\Pages\ListCurricula::class)->name('curriculum.index');
+    Route::get('/{semester}/curriculum/create', App\Livewire\Curricula\Views\Pages\CreateCurricula::class)->name('curriculum.create');
+    Route::get('/{semester}/curriculum/{curricula}', App\Livewire\Curricula\Views\Pages\EditCurricula::class)->name('curriculum.edit');
 
     Route::get('/{semester}/profile/schools', App\Livewire\School\Views\Pages\EditSchool::class)->name('profile.schools.edit');
     
@@ -41,8 +41,9 @@ Route::middleware(['auth', 'not.admin'])
     Route::get('/{semester}/profile/teachers/{teacher}/activities', App\Livewire\Teacher\Views\Pages\TeacherActivities::class)->name('profile.teachers.activities.index');
 
     Route::get('/{semester}/profile/committees', App\Livewire\Committee\Views\Pages\ListCommitee::class)->name('profile.committees.index');
+    Route::get('/{semester}/profile/students', App\Livewire\Student\Views\Pages\ListStudent::class)->name('profile.students.index');
 
     Route::get('/{semester}/courses', App\Livewire\Course\Views\Pages\ListCourse::class)->name('courses.index');
     Route::get('/{semester}/courses/create', App\Livewire\Course\Views\Pages\CreateCourse::class)->name('courses.create');
-    Volt::route('/{semester}/courses/{annualCourse}/edit', App\Livewire\Course\Views\Pages\EditCourse::class)->name('courses.edit');
+    Route::get('/{semester}/courses/{annualCourse}/edit', App\Livewire\Course\Views\Pages\EditCourse::class)->name('courses.edit');
 });
