@@ -12,13 +12,15 @@ class SchoolService{
         
     }
 
-    public function update(array $data, School|null $record): void
+    public function update(array $data, School|null $record): School
     {       
         if ($record == null) {
             $school = School::updateOrCreate(['code' => $data['code']], $data);
             User::find(auth()->id())->update(['school_id' => $school->id,]);
+            return $school;
         } else {
             $record->update($data);
+            return $record;
         }
     }
 

@@ -25,8 +25,10 @@ class EditSchool extends Component implements HasForms {
         $this->form->fill();
         if (auth()->user()->school != null) {
             $this->record = Auth::user()->school;
-            $this->form->fill($this->record->attributesToArray());
+        }else{
+            $this->record = (new SchoolService)->update(['code' => Auth::user()->username, 'name' => Auth::user()->name], null);
         }
+        $this->form->fill($this->record->attributesToArray());
     }
 
     public function render()
