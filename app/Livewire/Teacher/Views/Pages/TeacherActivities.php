@@ -6,8 +6,12 @@ use App\Livewire\Teacher\Services\TeacherActivitiesService;
 use App\Livewire\Teacher\Views\Resources\TeacherActivitiesResource;
 use App\Models\Semester;
 use App\Models\Teacher;
+use App\Models\TeacherActivity;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Tables\Actions\CreateAction;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
@@ -55,6 +59,32 @@ class TeacherActivities extends Component implements HasForms, HasTable {
 
     public function table(Table $table): Table
     {
-        return TeacherActivitiesResource::getTable($table, $this->teacher);
+        return $table
+            ->query(TeacherActivity::query())
+            ->columns(TeacherActivitiesResource::getTableColumns())
+            ->filters([])
+            ->headerActions([
+                CreateAction::make()
+                    ->label('Tambah')
+                    ->model(TeacherActivity::class)
+                    ->modalHeading('Tambah Kegiatan Sosial')
+                    ->form(TeacherActivitiesResource::getFormColumns())
+                    ->mutateFormDataUsing(function (array $data): array {
+                        $data['teacher_id'] = $this->teacher->id;
+                        return $data;
+                    }),
+            ])
+            ->actions([
+                EditAction::make()
+                    ->label('')
+                    ->modalHeading('Kemaskini Kegiatan Sosial')
+                    ->form(TeacherActivitiesResource::getFormColumns()),
+                DeleteAction::make()
+                    ->label('')
+                    ->modalHeading('Padam Kegiatan Sosial')
+                    ->requiresConfirmation()
+                    ->action(fn(TeacherActivity $record) => $record->delete()),
+            ])
+            ->defaultSort('name', 'ASC');
     }
 };

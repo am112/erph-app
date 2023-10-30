@@ -9,9 +9,9 @@
             {{ $this->form }}
 
             <div class="mt-6">
-                <x-ui.button-primary type="submit">
-                    {{ __('Kemaskini') }}
-                </x-ui.button-primary>
+                <x-filament::button type="submit">
+                    {{ __('Simpan') }}
+                </x-filament::button>
             </div>
 
         </form>

@@ -9,9 +9,37 @@ use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
 
-class TeacherFormResource {
-    public static function columns(bool $avatar): array{
+class TeacherResource {
+
+    public static function getTableColumns(): array
+    {
+        return [
+            TextColumn::make('name')
+                ->label('Nama')
+                ->searchable()
+                ->sortable(),
+            TextColumn::make('position')
+                ->label('Jawatan')
+                ->searchable()
+                ->sortable(),
+            TextColumn::make('nric')
+                ->label('No KP.')
+                ->searchable()
+                ->sortable(),
+            TextColumn::make('gender')
+                ->label('Jantina')
+                ->searchable()
+                ->sortable(),
+            TextColumn::make('job_status')
+                ->label('Status Perkhidmatan')
+                ->searchable()
+                ->sortable(),
+        ];
+    }
+
+    public static function getFormColumns(bool $avatar): array{
         return [
             $avatar
             ? Placeholder::make('')

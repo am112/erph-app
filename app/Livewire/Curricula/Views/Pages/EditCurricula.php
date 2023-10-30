@@ -2,11 +2,14 @@
 
 namespace App\Livewire\Curricula\Views\Pages;
 
-use App\Http\Services\CurriculaService;
+use App\Livewire\Curricula\Services\CurriculaService;
 use App\Models\Curricula;
 use App\Models\Semester;
 use App\Models\UserCurriculum;
 use App\Models\Week;
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
+use Filament\Actions\DeleteAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
@@ -18,11 +21,12 @@ use Filament\Forms\Form;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class EditCurricula extends Component implements HasForms {
+class EditCurricula extends Component implements HasForms, HasActions {
+    use InteractsWithActions;
     use InteractsWithForms;
+
     public Semester $semester;
     public UserCurriculum $record;
-
     public ?array $data = [];
 
     public function mount(UserCurriculum $curricula, Semester $semester): void
@@ -62,7 +66,6 @@ class EditCurricula extends Component implements HasForms {
             ],
         ];
     }
-
 
     public function edit(): void
     {
@@ -104,7 +107,18 @@ class EditCurricula extends Component implements HasForms {
                 ]),
                 Toggle::make('accomplished')->label('Terlaksana'),
             ])
-            ->statePath('data')
-            ->model(UserCurriculum::class);
+            ->statePath('data')            
+            ->model($this->record);
+    }
+
+    public function deleteAction(): DeleteAction
+    {
+        return DeleteAction::make('delete')
+            ->record($this->record)
+            ->requiresConfirmation()
+            ->after(function(Component $livewire){
+                $livewire->dispatch('toast', message: 'Data berjaya dikemaskini', data: ['position' => 'top-right', 'type' => 'success']);
+                $livewire->redirect(route('curriculum.index', $this->semester), false);
+            });
     }
 }

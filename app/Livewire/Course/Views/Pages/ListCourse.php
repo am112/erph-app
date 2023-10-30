@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Course\Views\Pages;
 
+use App\Livewire\Course\Views\Resources\CourseResource;
 use App\Models\AnnualCoursePlan;
 use App\Models\Month;
 use App\Models\Semester;
@@ -53,31 +54,7 @@ class ListCourse extends Component implements HasForms, HasTable {
     {
         return $table
             ->query(AnnualCoursePlan::semester($this->semester->id))
-            ->columns([
-                Tables\Columns\TextColumn::make('month_id')->hidden(true),
-                Tables\Columns\TextColumn::make('month.name')
-                    ->label('Bulan')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('pillar.code')
-                    ->label('Tunjang')
-                    ->searchable()
-                    ->description(fn(AnnualCoursePlan $record): string => $record->pillar->name)
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('standardContents.code')
-                    ->label('Standard Kandungan')
-                    ->badge()
-                    ->separator(','),
-
-                Tables\Columns\TextColumn::make('standardLessons.code')
-                    ->label('Standard Pembelajaran')
-                    ->badge()
-                    ->separator(','),
-
-                Tables\Columns\TextColumn::make('description')
-                    ->searchable()
-                    ->label('Catatan'),
-            ])
+            ->columns(CourseResource::getTableColumns())
             ->filters([
                 Tables\Filters\SelectFilter::make('month_id')
                     ->label('Bulan')

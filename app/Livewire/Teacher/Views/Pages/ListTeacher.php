@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Teacher\Views\Pages;
 
+use App\Livewire\Teacher\Views\Resources\TeacherResource;
 use Livewire\Component;
 use App\Models\Teacher;
 use App\Models\Semester;
@@ -53,39 +54,13 @@ class ListTeacher extends Component implements HasForms, HasTable
     {
         return $table
             ->query(Teacher::query())
-            ->columns($this->getTableColumns())
+            ->columns(TeacherResource::getTableColumns())
             ->filters([])
             ->headerActions([
                 $this->getCreateAction(),
             ])
             ->actions($this->getTableColumnActions())
             ->defaultSort('name', 'ASC');
-    }
-
-    protected function getTableColumns(): array
-    {
-        return [
-            Tables\Columns\TextColumn::make('name')
-                ->label('Nama')
-                ->searchable()
-                ->sortable(),
-            Tables\Columns\TextColumn::make('position')
-                ->label('Jawatan')
-                ->searchable()
-                ->sortable(),
-            Tables\Columns\TextColumn::make('nric')
-                ->label('No KP.')
-                ->searchable()
-                ->sortable(),
-            Tables\Columns\TextColumn::make('gender')
-                ->label('Jantina')
-                ->searchable()
-                ->sortable(),
-            Tables\Columns\TextColumn::make('job_status')
-                ->label('Status Perkhidmatan')
-                ->searchable()
-                ->sortable(),
-        ];
     }
     
     protected function getTableColumnActions(): array

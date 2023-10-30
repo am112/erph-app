@@ -13,22 +13,9 @@ use Filament\Tables\Table;
 
 class TeacherActivitiesResource{
 
-    public static function form(): array
+    public static function getTableColumns(): array
     {
         return [
-            TextInput::make('name')
-                ->required()
-                ->maxLength(255),
-            TextInput::make('position')
-                ->required()
-                ->maxLength(255),
-        ];
-    }
-
-    public static function getTable(Table $table, Teacher $teacher): Table{
-        return $table
-        ->query(TeacherActivity::query())
-        ->columns([
             TextColumn::make('name')
                 ->label('Nama')
                 ->searchable()
@@ -37,30 +24,20 @@ class TeacherActivitiesResource{
                 ->label('Jawatan')
                 ->searchable()
                 ->sortable(),
-        ])
-        ->filters([])
-        ->headerActions([
-            CreateAction::make()
-                ->label('Tambah')
-                ->model(TeacherActivity::class)
-                ->modalHeading('Tambah Kegiatan Sosial')
-                ->form(Self::form())
-                ->mutateFormDataUsing(function (array $data) use($teacher): array {
-                    $data['teacher_id'] = $teacher->id;
-                    return $data;
-                }),
-        ])
-        ->actions([
-            EditAction::make()
-                ->label('')
-                ->modalHeading('Kemaskini Kegiatan Sosial')
-                ->form(Self::form()),
-            DeleteAction::make()
-                ->label('')
-                ->modalHeading('Padam AJK')
-                ->requiresConfirmation()
-                ->action(fn(TeacherActivity $record) => $record->delete()),
-        ])
-        ->defaultSort('name', 'ASC');
+        ];
+    }
+
+    public static function getFormColumns(): array
+    {
+        return [
+            TextInput::make('name')
+                ->label('Nama')
+                ->required()
+                ->maxLength(255),
+            TextInput::make('position')
+                ->label('Jawatan')
+                ->required()
+                ->maxLength(255),
+        ];
     }
 }

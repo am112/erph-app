@@ -3,13 +3,12 @@
 namespace App\Livewire\Teacher\Views\Pages;
 
 use App\Livewire\Teacher\Services\TeacherService;
-use App\Livewire\Teacher\Views\Resources\TeacherFormResource;
+use App\Livewire\Teacher\Views\Resources\TeacherResource;
 use App\Models\Teacher;
 use App\Models\Semester;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
-use Filament\Forms;
 use Livewire\Component;
 
 class EditTeacher extends Component implements HasForms {
@@ -61,7 +60,7 @@ class EditTeacher extends Component implements HasForms {
     public function form(Form $form): Form
     {
         return $form
-            ->schema(TeacherFormResource::columns($this->avatarExist))
+            ->schema(TeacherResource::getFormColumns($this->avatarExist))
             ->statePath('data')
             ->model($this->record);
     }

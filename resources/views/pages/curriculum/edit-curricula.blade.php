@@ -8,10 +8,11 @@
         <form wire:submit="edit">
             {{ $this->form }}
 
-            <div class="mt-6">
-                <x-ui.button-primary type="submit">
+            <div class="flex mt-6 gap-4">
+                <x-filament::button type="submit">
                     {{ __('Kemaskini') }}
-                </x-ui.button-primary>
+                </x-filament::button>
+                {{ $this->deleteAction }}
             </div>
 
         </form>

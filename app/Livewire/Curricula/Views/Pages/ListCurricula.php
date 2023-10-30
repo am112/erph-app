@@ -7,6 +7,7 @@ use App\Models\Semester;
 use App\Models\Week;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class ListCurricula extends Component {
@@ -19,19 +20,12 @@ class ListCurricula extends Component {
 
     public function render(): View
     {
-        $curriculum = Curricula::query()
-        ->with(['userCurriculum' => fn(Builder $query) => $query->where('user_id', auth()->user()->id)->where('semester_id', $this->semester->id)])
-        ->orderBy('position', 'ASC')
-        ->get();
-
         return view('pages.curriculum.list-curricula', [
-            'breadcrumb' => $this->breadcrumb(),
-            'curriculum' => $curriculum,
-            'weeks' => Week::all(),
             'headerCount' => 0,
         ]);
     }
 
+    #[Computed]
     public function breadcrumb() : array
     {
         return [
@@ -46,5 +40,18 @@ class ListCurricula extends Component {
                 'icon' => '',
             ],
         ];
+    }
+
+    #[Computed]
+    public function curriculum(){
+        return Curricula::query()
+            ->with(['userCurriculum' => fn(Builder $query) => $query->where('user_id', auth()->user()->id)->where('semester_id', $this->semester->id)])
+            ->orderBy('position', 'ASC')
+            ->get();
+    }
+
+    #[Computed]
+    public function weeks(){
+        return Week::all();
     }
 }

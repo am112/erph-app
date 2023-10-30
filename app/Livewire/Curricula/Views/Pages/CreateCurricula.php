@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Curricula\Views\Pages;
 
-use App\Http\Services\CurriculaService;
+use App\Livewire\Curricula\Services\CurriculaService;
 use App\Models\Curricula;
 use App\Models\Semester;
 use App\Models\Week;
@@ -24,6 +24,7 @@ class CreateCurricula extends Component implements HasForms {
     public function mount(Semester $semester): void
     {
         $this->semester = $semester;
+        $this->form->fill();
     }
 
     public function render(): View

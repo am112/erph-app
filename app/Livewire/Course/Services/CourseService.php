@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Livewire\Course\Services;
 
 use App\Models\AnnualCoursePlan;
-use App\Models\Curricula;
 use App\Models\Semester;
-use App\Models\UserCurriculum;
 
 class CourseService{
 

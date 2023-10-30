@@ -10,9 +10,9 @@
             {{ $this->form }}
 
             <div class="py-6">
-                <x-ui.button-primary type="submit">
+                <x-filament::button type="submit">
                     {{ __('Tambah') }}
-                </x-ui.button-primary>
+                </x-filament::button>
             </div>
 
         </form>

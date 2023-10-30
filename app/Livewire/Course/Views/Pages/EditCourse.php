@@ -2,24 +2,20 @@
 
 namespace App\Livewire\Course\Views\Pages;
 
+use App\Livewire\Course\Services\CourseService;
 use App\Models\AnnualCoursePlan;
-use App\Models\Course;
-use App\Models\Month;
 use App\Models\Semester;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
-use Filament\Forms;
-use Filament\Forms\Get;
-use Illuminate\Support\Facades\DB;
-use App\Http\Services\CourseService;
+use App\Livewire\Course\Views\Resources\CourseResource;
 use Livewire\Component;
 
 class EditCourse extends Component implements HasForms {
     use InteractsWithForms;
+
     public Semester $semester;
     public AnnualCoursePlan $record;
-
     public ?array $data = [];
 
      public function mount(Semester $semester, AnnualCoursePlan $annualCourse): void
@@ -64,75 +60,14 @@ class EditCourse extends Component implements HasForms {
     public function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\Group::make()->schema([
-                    Forms\Components\Grid::make(2)->schema([
-                        Forms\Components\Select::make('month_id')
-                            ->label('Bulan')
-                            ->required()
-                            ->native(false)
-                            ->searchable()
-                            ->options(Month::all()->pluck('name', 'id')),
-                    ]),
-                ]),
-                Forms\Components\Select::make('pillar_id')
-                    ->label('Tunjang')
-                    ->required()
-                    ->native(false)
-                    ->searchable()
-                    ->options(
-                        Course::select('id', DB::raw("concat(code, ' - ', name) as codename"))
-                            ->tunjang()
-                            ->get()
-                            ->pluck('codename', 'id'),
-                    ),
-                Forms\Components\Group::make()->schema([
-                    Forms\Components\Grid::make(2)->schema([
-                        Forms\Components\Select::make('standard_contents_id')
-                            ->label('Standard Kandungan')
-                            ->required()
-                            ->multiple()
-                            ->native(false)
-                            ->searchable()
-                            ->options(
-                                fn(Get $get): array => Course::query()
-                                    // ->select('id', DB::raw("concat(code, ' - ', SUBSTRING(name, 1, 20)) as codename"))
-                                    ->where('parent_id', $get('pillar_id'))
-                                    ->whereNotNull('parent_id')
-                                    ->get()
-                                    ->pluck('code', 'id')
-                                    ->toArray(),
-                            ),
-
-                        Forms\Components\Select::make('standard_lessons_id')
-                            ->label('Standard Pembelajaran')
-                            ->required()
-                            ->multiple()
-                            ->native(false)
-                            ->searchable()
-                            ->options(
-                                fn(Get $get): array => Course::whereIn('parent_id', $get('standard_contents_id'))
-                                    ->whereNotNull('parent_id')
-                                    ->get()
-                                    ->pluck('code', 'id')
-                                    ->toArray(),
-                            ),
-                    ]),
-                ]),
-                Forms\Components\Textarea::make('description')
-                    ->label('Catatan')
-                    ->maxLength(255),
-            ])
+            ->schema(CourseResource::getFormColumns())
             ->statePath('data')
-            ->model($this->record ?? AnnualCoursePlan::class);
+            ->model($this->record);
     }
 
-    public function create(): void
+    public function edit(): void
     {
-        $data = $this->form->getState();
-        (new CourseService($this->semester))->create($data);
-
+        (new CourseService($this->semester))->update($this->form->getState(), $this->record);
         $this->dispatch('toast', message: 'Data berjaya dikemaskini', data: ['position' => 'top-right', 'type' => 'success']);
-        $this->form->fill();
     }
 }

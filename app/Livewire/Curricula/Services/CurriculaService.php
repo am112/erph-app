@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Livewire\Curricula\Services;
 
-use App\Models\Curricula;
 use App\Models\Semester;
 use App\Models\UserCurriculum;
 
@@ -17,7 +16,7 @@ class CurriculaService{
     {
         $data['user_id'] = auth()->id();
         $data['semester_id'] = $this->semester->id;
-        Curricula::create($data);
+        UserCurriculum::create($data);
     }
 
     public function update(array $data, UserCurriculum $record): void
