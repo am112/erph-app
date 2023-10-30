@@ -55,4 +55,8 @@ class User extends Authenticatable implements FilamentUser
     public function school(){
         return $this->belongsTo(School::class);
     }
+
+    public function studentStatistic(){
+        return $this->hasMany(StudentStatistic::class);
+    }
 }
