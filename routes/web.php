@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LogoutController;
 use App\Livewire\Pages\Landing;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -46,4 +47,6 @@ Route::middleware(['auth', 'not.admin'])
     Route::get('/{semester}/courses', App\Livewire\Course\Views\Pages\ListCourse::class)->name('courses.index');
     Route::get('/{semester}/courses/create', App\Livewire\Course\Views\Pages\CreateCourse::class)->name('courses.create');
     Route::get('/{semester}/courses/{annualCourse}/edit', App\Livewire\Course\Views\Pages\EditCourse::class)->name('courses.edit');
+
+    Route::get('/{semester}/rph', App\Livewire\Rph\Views\Pages\ListRph::class)->name('rph.index');
 });
