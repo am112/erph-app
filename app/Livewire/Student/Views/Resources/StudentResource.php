@@ -10,8 +10,12 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Tables\Columns\Summarizers\Sum;
+use Filament\Tables\Columns\Summarizers\Summarizer;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
 
 class StudentResource{
 
@@ -29,52 +33,74 @@ class StudentResource{
                 ->label('4 Tahun - L')
                 ->numeric()
                 ->alignCenter()
-                ->sortable(),
+                ->sortable()
+                ->summarize(Sum::make()->label('')),
             TextColumn::make('female_four')
                 ->label('4 Tahun - P')
                 ->numeric()
                 ->alignCenter()
-                ->sortable(),
+                ->sortable()
+                ->summarize(Sum::make()->label('')),
             TextColumn::make('male_five')
                  ->label('5 Tahun - L')
                 ->numeric()
                 ->alignCenter()
-                ->sortable(),
+                ->sortable()
+                ->summarize(Sum::make()->label('')),
             TextColumn::make('female_five')
                 ->label('5 Tahun - P')
                 ->numeric()
                 ->alignCenter()
-                ->sortable(),
+                ->sortable()
+                ->summarize(Sum::make()->label('')),
             TextColumn::make('male_six')
                 ->label('6 Tahun - L')
                 ->numeric()
                 ->alignCenter()
-                ->sortable(),
+                ->sortable()
+                ->summarize(Sum::make()->label('')),
             TextColumn::make('female_six')
                 ->label('6 Tahun - P')
                 ->numeric()
                 ->alignCenter()
-                ->sortable(),
+                ->sortable()
+                ->summarize(Sum::make()->label('')),
             TextColumn::make('melayu')
                 ->numeric()
                 ->alignCenter()
-                ->sortable(),
+                ->sortable()
+                ->summarize(Sum::make()->label('')),
             TextColumn::make('cina')
                 ->numeric()
                 ->alignCenter()
-                ->sortable(),
+                ->sortable()
+                ->summarize(Sum::make()->label('')),
             TextColumn::make('india')
                 ->numeric()
                 ->alignCenter()
-                ->sortable(),
+                ->sortable()
+                ->summarize(Sum::make()->label('')),
             TextColumn::make('others')
+                ->label('Lain - Lain')
                 ->numeric()
                 ->alignCenter()
-                ->sortable(),
-            ViewColumn::make('Total')
+                ->sortable()
+                ->summarize(Sum::make()->label('')),
+            TextColumn::make('total')
+                ->label('Lain - Lain')
+                ->numeric()
                 ->alignCenter()
                 ->sortable()
-                ->view('filament.student-statistic-total'),
+                ->summarize(Sum::make()->label('')),
+            // ViewColumn::make('total')
+            //     ->label('Jumlah')
+            //     ->alignCenter()
+            //     ->sortable()
+            //     ->view('filament.student-statistic-total')
+            //     ->summarize(Summarizer::make()
+            //         ->label('')
+            //         ->using(fn (Builder $query): string => $query->sum(DB::raw('melayu + cina + india + others')))
+            //     ),
             TextColumn::make('created_at')
                 ->dateTime()
                 ->sortable()

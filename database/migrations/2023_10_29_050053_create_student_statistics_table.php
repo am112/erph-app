@@ -28,6 +28,8 @@ return new class extends Migration
             $table->integer('india')->nullable();
             $table->integer('others')->nullable();
 
+            $table->integer('total')->nullable();
+
             $table->timestamps();
         });
     }
