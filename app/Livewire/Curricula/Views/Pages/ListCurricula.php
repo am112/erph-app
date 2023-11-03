@@ -45,7 +45,7 @@ class ListCurricula extends Component {
     #[Computed]
     public function curriculum(){
         return Curricula::query()
-            ->with(['userCurriculum' => fn(Builder $query) => $query->where('user_id', auth()->user()->id)->where('semester_id', $this->semester->id)])
+            ->with(['userCurriculum' => fn(Builder $query) => $query->createdBy()->semester($this->semester->id)])
             ->orderBy('position', 'ASC')
             ->get();
     }

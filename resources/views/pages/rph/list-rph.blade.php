@@ -12,4 +12,10 @@
             <livewire:modal-courses-list />
         </div>
     </div>
+    <x-filament::modal id="show-pdf" width="7xl" :close-by-clicking-away="false">
+        <x-slot name="heading">
+            {{ __('Lihat Attachment') }}
+        </x-slot>
+        <embed src="{{ $media }}" type="" height="900px" />
+    </x-filament::modal>
 </div>

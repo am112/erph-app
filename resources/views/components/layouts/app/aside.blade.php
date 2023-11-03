@@ -89,7 +89,7 @@
                         'name' => __('RPH'),
                         'link' => route('rph.index', ['semester' => request()->semester]),
                         'routeName' => 'rph',
-                        'icon' => 'heroicon-m-academic-cap',
+                        'icon' => 'heroicon-o-document-plus',
                         'subitems' => [],
                     ],
                 ];

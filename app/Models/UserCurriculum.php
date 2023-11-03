@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,6 +26,16 @@ class UserCurriculum extends Model
     }
 
     public function curriculum(){
-        return $this->belongsTo(Curriculum::class);
+        return $this->belongsTo(Curricula::class);
+    }
+
+    // =========================  scope ==============================
+
+    public function scopeCreatedBy(Builder $query): void{
+        $query->where('user_id', auth()->id());
+    }
+
+    public function scopeSemester(Builder $query, int $semester): void{
+        $query->where('semester_id', $semester);
     }
 }

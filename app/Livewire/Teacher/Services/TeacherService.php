@@ -4,6 +4,7 @@ namespace App\Livewire\Teacher\Services;
 
 use App\Models\Semester;
 use App\Models\Teacher;
+use App\Services\FileService;
 
 class TeacherService{
     
@@ -22,21 +23,21 @@ class TeacherService{
 
     public function update(array $data): void
     {
-        $data['type'] = $data['position'];
-        
-        if($data['image'] !== null){
-            if ($this->teacher->getFirstMedia() != null) {
-                $this->deleteAvatar();
-            }
-
-            $this->teacher->addMedia($data['image'])->toMediaCollection();            
+        if($this->teacher == null){
+            return;
         }
+        
+        if(isset($data['image'])){
+            (new FileService($this->teacher))->storeToCollection($data['image'], Teacher::MEDIA_AVATAR, true);
+        }
+
+        $data['type'] = $data['position'];
         unset($data['image']);
         $this->teacher->update($data);
     }
 
     public function deleteAvatar()
     {
-        $this->teacher->getFirstMedia()->delete();
+        (new FileService($this->teacher))->deleteAllFromCollection(Teacher::MEDIA_AVATAR);
     }
 }

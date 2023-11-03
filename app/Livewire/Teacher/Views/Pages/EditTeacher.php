@@ -25,7 +25,7 @@ class EditTeacher extends Component implements HasForms {
     {
         $this->semester = $semester;
         $this->record = $teacher;
-        $this->avatarExist = $this->record->getFirstMedia() == null ? false : true;
+        $this->avatarExist = $this->record->getFirstMedia(Teacher::MEDIA_AVATAR) == null ? false : true;
         $this->form->fill($this->record->attributesToArray());
     }
 

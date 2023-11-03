@@ -9,4 +9,8 @@ class Week extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function rph(){
+        return $this->hasOne(Rph::class);
+    }
 }

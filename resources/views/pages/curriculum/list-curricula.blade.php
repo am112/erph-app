@@ -1,8 +1,8 @@
 <div>
     <x-layouts.app.breadcrumb :links="$this->breadcrumb" />
 
-    <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Kalendar Aktiviti') }}</h2>
-    <div class="p-6 mt-5 bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
+    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-5">{{ __('Kalendar Aktiviti') }}</h2>
+    <div class="p-6 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
         <div class="flex justify-between items-center text-center">
             <div></div>
             <x-filament::button tag="a" href="{{ route('curriculum.create', $semester) }}">
@@ -13,7 +13,7 @@
         <div class="relative overflow-x-auto mt-8">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead style="top: 0; position:stick; "
-                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    class="bg-gray-50 dark:bg-gray-700 text-sm font-semibold text-gray-950 dark:text-white">
                     <tr>
                         <th style="position: sticky; left:0; " scope="col"
                             class="px-6 py-3 dark:text-white bg-gray-50 dark:bg-gray-700">
