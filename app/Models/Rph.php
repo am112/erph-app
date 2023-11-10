@@ -70,6 +70,10 @@ class Rph extends Model implements HasMedia
         return $this->belongsTo(Week::class);
     }
 
+    public function timetables(){
+        return $this->hasMany(Timetable::class);
+    }
+
     // =========================  scope ==============================
 
     public function scopeCreatedBy(Builder $query): void{

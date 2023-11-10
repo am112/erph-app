@@ -1,17 +1,11 @@
 <div>
     <x-layouts.app.breadcrumb :links="$breadcrumb" />
-
-    <h2 class="text-xl font-bold text-gray-900 dark:text-white">
-        {{ __('Tambah Rancangan Pelajaran Tahunan') }}</h2>
-    <div
-        class="p-6 mt-5 max-w-4xl bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
-        <div class="mb-0 flex justify-between items-center">
+    <x-ui.page-title>{{ __('Tambah Rancangan Pelajaran Tahunan') }}</x-ui.page-title>
+    <x-ui.section class="p-6 max-w-4xl">
+        <div class="flex items-center justify-between">
             <div></div>
-            <div class="">
-                <livewire:modal-courses-list />
-            </div>
+            <livewire:modal-courses-list lazy />
         </div>
-
         <form wire:submit="create">
             {{ $this->form }}
 
@@ -23,5 +17,5 @@
 
         </form>
         <x-filament-actions::modals />
-    </div>
+    </x-ui.section>
 </div>

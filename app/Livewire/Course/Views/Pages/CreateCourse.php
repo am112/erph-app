@@ -34,21 +34,9 @@ class CreateCourse extends Component implements HasForms {
     public function breadcrumb() : array
     {
         return [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $this->semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('Rancangan Pelajaran'),
-                'href' => route('courses.index', $this->semester),
-                'icon' => 'heroicon-m-academic-cap',
-            ],
-            [
-                'name' => __('Tambah'),
-                'href' => '',
-                'icon' => '',
-            ],
+            route('dashboard', $this->semester) => __('Halaman Utama'),
+            route('courses.index', $this->semester) => __('Rancangan Pelajaran'),
+            '' => __('Tambah'),
         ];
     }
 

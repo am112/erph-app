@@ -15,7 +15,7 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 
 
-class ListTeacher extends Component implements HasForms, HasTable 
+class ListTeacher extends Component implements HasForms, HasTable
 {
     use InteractsWithForms;
     use InteractsWithTable;
@@ -37,16 +37,8 @@ class ListTeacher extends Component implements HasForms, HasTable
     public function breadcrumb() : array
     {
         return [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $this->semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('PM / PPMS'),
-                'href' => '',
-                'icon' => '',
-            ],
+            route('dashboard', $this->semester) => __('Halaman Utama'),
+            '' => __('PM / PPMS'),
         ];
     }
 
@@ -62,7 +54,7 @@ class ListTeacher extends Component implements HasForms, HasTable
             ->actions($this->getTableColumnActions())
             ->defaultSort('name', 'ASC');
     }
-    
+
     protected function getTableColumnActions(): array
     {
         return [
@@ -82,7 +74,7 @@ class ListTeacher extends Component implements HasForms, HasTable
         ];
     }
 
-    protected function getCreateAction(): CreateAction 
+    protected function getCreateAction(): CreateAction
     {
         return CreateAction::make()
             ->label('Tambah')

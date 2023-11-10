@@ -1,10 +1,7 @@
 <div>
     <x-layouts.app.breadcrumb :links="$breadcrumb" />
-    <h2 class="text-xl font-bold text-gray-900 dark:text-white">
-        {{ __('Kemaskini PM/PPMS') }}</h2>
-    <div
-        class="p-6 mt-5 max-w-4xl bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
-
+    <x-ui.page-title>{{ __('Kemaskini PM/PPMS') }}</x-ui.page-title>
+    <x-ui.section class="p-6 max-w-4xl">
         @if ($avatarExist != null)
             <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
                 Gambar
@@ -27,5 +24,5 @@
 
         </form>
         <x-filament-actions::modals />
-    </div>
+    </x-ui.section>
 </div>

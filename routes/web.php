@@ -23,7 +23,7 @@ Volt::route('/login', 'auth.login')->middleware('guest')->name('login');
 Route::middleware(['auth', 'not.admin'])
 ->group(function(){
     Route::middleware('active.semester')->get('/dashboard', fn()=> 'redirect')->name('dashboard.redirect');
-    Route::post('logout', LogoutController::class)->name('logout'); 
+    Route::post('logout', LogoutController::class)->name('logout');
 
     Volt::route('/{semester}/dashboard', 'dashboard.index')->name('dashboard');
 
@@ -35,7 +35,7 @@ Route::middleware(['auth', 'not.admin'])
     Route::get('/{semester}/curriculum/{curricula}', App\Livewire\Curricula\Views\Pages\EditCurricula::class)->name('curriculum.edit');
 
     Route::get('/{semester}/profile/schools', App\Livewire\School\Views\Pages\EditSchool::class)->name('profile.schools.edit');
-    
+
     Route::get('/{semester}/profile/teachers', App\Livewire\Teacher\Views\Pages\ListTeacher::class)->name('profile.teachers.index');
     Route::get('/{semester}/profile/teachers/create', App\Livewire\Teacher\Views\Pages\CreateTeacher::class)->name('profile.teachers.create');
     Route::get('/{semester}/profile/teachers/{teacher}/edit', App\Livewire\Teacher\Views\Pages\EditTeacher::class)->name('profile.teachers.edit');
@@ -49,4 +49,9 @@ Route::middleware(['auth', 'not.admin'])
     Route::get('/{semester}/courses/{annualCourse}/edit', App\Livewire\Course\Views\Pages\EditCourse::class)->name('courses.edit');
 
     Route::get('/{semester}/rph', App\Livewire\Rph\Views\Pages\ListRph::class)->name('rph.index');
+    Route::get('/{semester}/rph/{rph}/timetables', App\Livewire\Timetable\Views\Pages\ListTimetable::class)->name('rph.timetable.index');
+    Route::get('/{semester}/rph/{rph}/timetables/create', App\Livewire\Timetable\Views\Pages\CreateTimetable::class)->name('rph.timetable.create');
+    Route::get('/{semester}/rph/{rph}/timetables/{timetable}/edit', App\Livewire\Timetable\Views\Pages\EditTimetable::class)->name('rph.timetable.edit');
+
+    Route::get('/{semester}/rph/{rph}/timetables/summaries/{date_at}', App\Livewire\Timetable\Views\Pages\ShowTimetable::class)->name('rph.timetable.summaries');
 });

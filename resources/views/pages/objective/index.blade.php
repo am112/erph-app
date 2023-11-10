@@ -16,16 +16,8 @@ new class extends Component {
 <div>
     @php
         $breadcrumb = [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('Objektif'),
-                'href' => '',
-                'icon' => '',
-            ],
+            route('dashboard', $this->semester) => __('Halaman Utama'),
+            '' => __('Objektif'),
         ];
     @endphp
     <x-layouts.app.breadcrumb :links="$breadcrumb" />

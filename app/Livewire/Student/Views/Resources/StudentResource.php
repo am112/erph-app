@@ -87,7 +87,7 @@ class StudentResource{
                 ->sortable()
                 ->summarize(Sum::make()->label('')),
             TextColumn::make('total')
-                ->label('Lain - Lain')
+                ->label('Jumlah')
                 ->numeric()
                 ->alignCenter()
                 ->sortable()
@@ -175,8 +175,8 @@ class StudentResource{
                     ]),
                 ]),
             ])->columns(3),
-            
-        
+
+
             Fieldset::make('Bil. Kanak-Kanak Mengikut Kaum')
                 ->schema([
                     Group::make()->schema([
@@ -208,7 +208,7 @@ class StudentResource{
                         ]),
                     ]),
                 ])
-                ->columns(2),                
+                ->columns(2),
             Group::make()->schema([
                 Grid::make(2)->schema([
                     TextInput::make('total_by_year')
@@ -217,17 +217,17 @@ class StudentResource{
                     ->same('total_by_race') ,
                     TextInput::make('total_by_race')
                     ->label('Jumlah Mengikut Kaum')
-                    ->disabled(true)       
-                    ->same('total_by_year')                  
+                    ->disabled(true)
+                    ->same('total_by_year')
                 ]),
-            ]), 
+            ]),
         ];
     }
 
     public static function calculateSum($header, Get|array $data): int
     {
         try{
-            $sum = 0;            
+            $sum = 0;
             foreach($header as $item){
                 if(is_array($data)){
                     if($data[$item] != null){
@@ -237,8 +237,8 @@ class StudentResource{
                     if($data($item) != null){
                         $sum += $data($item);
                     }
-                }                
-            }                
+                }
+            }
             return $sum;
         }catch(\Exception $e){
             return 0;

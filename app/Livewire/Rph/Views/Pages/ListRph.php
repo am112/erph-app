@@ -4,6 +4,7 @@ namespace App\Livewire\Rph\Views\Pages;
 
 use App\Models\Rph;
 use App\Models\Semester;
+use App\Models\Timetable;
 use App\Models\Week;
 use App\Services\FileService;
 use Filament\Forms\Components\FileUpload;
@@ -18,6 +19,7 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -42,16 +44,8 @@ class ListRph extends Component implements HasForms, HasTable
     public function breadcrumb() : array
     {
         return [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $this->semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('RPH'),
-                'href' => '',
-                'icon' => '',
-            ],
+            route('dashboard', $this->semester) => __('Halaman Utama'),
+            '' => __('RPH'),
         ];
     }
 
@@ -61,8 +55,13 @@ class ListRph extends Component implements HasForms, HasTable
             ->query(
                 Week::query()
                 ->with([
-                    'rph' => fn(Builder $query) => $query->createdBy()->semester($this->semester->id)
-                ])                
+                    'rph' => fn(Builder $query) => $query->createdBy()
+                    ->semester($this->semester->id)
+                    ->with('media')
+                    ->withCount([
+                        'timetables' => fn($query)=> $query->select(DB::raw('count(distinct(date_at))'))
+                    ])
+                ])
             )
             ->columns([
                 TextColumn::make('name')
@@ -77,17 +76,15 @@ class ListRph extends Component implements HasForms, HasTable
                 ->label('Web Aktiviti')
                 ->alignCenter()
                 ->view('filament.rph.table.column-web-activity'),
-                
-            ])
-            ->headerActions([
-                Action::make('create')
-                ->label(__('Cipta Jadual'))
-                ->url(fn(): string => ''),
+                TextColumn::make('rph.timetables_count')
+                ->label('Jumlah Jadual')
+                ->alignCenter()
+
             ])
             ->filters([
                 //
             ])
-            ->actions([                
+            ->actions([
                 EditAction::make()
                 ->label('')
                 ->form([
@@ -96,7 +93,7 @@ class ListRph extends Component implements HasForms, HasTable
                     FileUpload::make('web_activity')
                     ->storeFiles(false),
                 ])
-                ->using(function(Model $record, array $data){   
+                ->using(function(Model $record, array $data){
                     $rph = $record->rph;
                     if($rph === null){
                         $rph = Rph::create([
@@ -112,12 +109,26 @@ class ListRph extends Component implements HasForms, HasTable
                     if($data['web_activity'] != null){
                         (new FileService($rph))->storeToCollection($data['web_activity'], Rph::MEDIA_WEB_ACTIVITY, true);
                     }
-                    
+
                     return $record;
+                }),
+                Action::make('timetable')
+                ->label(__('Jadual'))
+                ->after(function(Component $livewire, Week $record){
+                    if($record->rph == null){
+                        $rph = Rph::create([
+                            'user_id' => auth()->user()->id,
+                            'semester_id' => $this->semester->id,
+                            'week_id' => $record->id,
+                        ]);
+                        $livewire->redirect(route('rph.timetable.index', ['semester' => $this->semester, 'rph' => $rph->id]), false);
+                        return;
+                    }
+                    $livewire->redirect(route('rph.timetable.index', ['semester' => $this->semester, 'rph' => $record->rph->id]), false);
                 }),
             ])
             ->bulkActions([
-                
+
             ]);
     }
 

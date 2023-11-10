@@ -1,11 +1,7 @@
 <div>
     <x-layouts.app.breadcrumb :links="$breadcrumb" />
-    <h2 class="text-xl font-bold text-gray-900 dark:text-white">
-        {{ __('Tambah PM/PPMS') }}
-    </h2>
-    <div
-        class="px-6 py-0 mt-5 max-w-4xl bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
-
+    <x-ui.page-title>{{ __('Tambah PM/PPMS') }}</x-ui.page-title>
+    <x-ui.section class="px-6 max-w-4xl">
         <form wire:submit="create">
             {{ $this->form }}
 
@@ -17,5 +13,5 @@
 
         </form>
         <x-filament-actions::modals />
-    </div>
+    </x-ui.section>
 </div>

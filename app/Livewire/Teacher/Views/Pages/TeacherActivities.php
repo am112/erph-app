@@ -39,21 +39,9 @@ class TeacherActivities extends Component implements HasForms, HasTable {
     public function breadcrumb() : array
     {
         return [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $this->semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('PM / PPMS'),
-                'href' => route('profile.teachers.index', $this->semester),
-                'icon' => 'heroicon-m-academic-cap',
-            ],
-            [
-                'name' => __('Kegiatan Sosial'),
-                'href' => '',
-                'icon' => '',
-            ],
+            route('dashboard', $this->semester) => __('Halaman Utama'),
+            route('profile.teachers.index', $this->semester) => __('PM / PPMS'),
+            '' => __('Kegiatan Sosial'),
         ];
     }
 

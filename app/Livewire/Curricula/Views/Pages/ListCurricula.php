@@ -29,16 +29,8 @@ class ListCurricula extends Component {
     public function breadcrumb() : array
     {
         return [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $this->semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('Kalendar Aktiviti'),
-                'href' => '',
-                'icon' => '',
-            ],
+            route('dashboard', $this->semester) => __('Halaman Utama'),
+            '' => __('Kalendar Aktiviti'),
         ];
     }
 

@@ -27,11 +27,12 @@
             document.documentElement.classList.remove("dark");
         }
     </script>
+    <link href='https://fonts.googleapis.com/css?family=Nunito Sans:400,700&display=swap' rel='stylesheet'>
 
 </head>
 
 <body class="min-h-screen ">
-    <div class="min-h-screen antialiased bg-gray-50 dark:bg-gray-900">
+    <div class="min-h-screen antialiased bg-gray-100 dark:bg-gray-900">
         <!-- Header -->
         <x-layouts.app.header />
 

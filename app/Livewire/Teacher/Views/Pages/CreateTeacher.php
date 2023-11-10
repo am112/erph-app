@@ -33,21 +33,9 @@ class CreateTeacher extends Component implements HasForms {
     public function breadcrumb() : array
     {
         return [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $this->semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('Senarai PM / PPMS'),
-                'href' => route('profile.teachers.index', $this->semester),
-                'icon' => 'heroicon-m-academic-cap',
-            ],
-            [
-                'name' => __('Tambah'),
-                'href' => '',
-                'icon' => '',
-            ],
+            route('dashboard', $this->semester) => __('Halaman Utama'),
+            route('profile.teachers.index', $this->semester) => __('PM / PPMS'),
+            '' => __('Tambah'),
         ];
     }
 

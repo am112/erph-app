@@ -1,14 +1,14 @@
 <div>
-    <x-layouts.app.breadcrumb :links="$breadcrumb" />
-    <x-ui.page-title>{{ __('Kemaskini Maklumat Tabika') }}</x-ui.page-title>
+    <x-layouts.app.breadcrumb :links="$this->breadcrumb" />
+    <x-ui.page-title>{{ __('Tambah Jadual') }}</x-ui.page-title>
 
-    <x-ui.section class="p-5 max-w-4xl">
+    <x-ui.section class="p-6 max-w-4xl">
         <form wire:submit="create">
             {{ $this->form }}
 
-            <div class="mt-6">
+            <div class="pt-6">
                 <x-filament::button type="submit">
-                    {{ __('Kemaskini') }}
+                    {{ __('Tambah') }}
                 </x-filament::button>
             </div>
 

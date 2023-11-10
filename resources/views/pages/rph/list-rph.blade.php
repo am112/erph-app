@@ -1,17 +1,10 @@
 <div>
     <x-layouts.app.breadcrumb :links="$this->breadcrumb" />
+    <x-ui.page-title>{{ __('Rancangan Pelajaran Harian') }}</x-ui.page-title>
     <div>
-        {{-- <div class="p-6 mt-6 bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 "> --}}
-        <div class="flex justify-between items-center text-center mb-5">
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Rancangan Pelajaran Harian') }}</h2>
-        </div>
-        <div>
-            {{ $this->table }}
-        </div>
-        <div class="flex justify-end mt-4">
-            <livewire:modal-courses-list />
-        </div>
+        {{ $this->table }}
     </div>
+
     <x-filament::modal id="show-pdf" width="7xl" :close-by-clicking-away="false">
         <x-slot name="heading">
             {{ __('Lihat Attachment') }}

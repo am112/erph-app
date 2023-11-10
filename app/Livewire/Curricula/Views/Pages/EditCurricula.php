@@ -39,7 +39,7 @@ class EditCurricula extends Component implements HasForms, HasActions {
 
     public function render(): View
     {
-        
+
 
         return view('pages.curriculum.edit-curricula', [
             'breadcrumb' => $this->breadcrumb(),
@@ -49,21 +49,9 @@ class EditCurricula extends Component implements HasForms, HasActions {
     public function breadcrumb() : array
     {
         return [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $this->semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('Kalendar Aktiviti'),
-                'href' => route('curriculum.index', $this->semester),
-                'icon' => 'heroicon-s-calendar-days',
-            ],
-            [
-                'name' => __('Kemaskini'),
-                'href' => '',
-                'icon' => '',
-            ],
+            route('dashboard', $this->semester) => __('Halaman Utama'),
+            route('curriculum.index', $this->semester) => __('Kalendar Aktiviti'),
+            '' => __('Kemaskini'),
         ];
     }
 
@@ -107,7 +95,7 @@ class EditCurricula extends Component implements HasForms, HasActions {
                 ]),
                 Toggle::make('accomplished')->label('Terlaksana'),
             ])
-            ->statePath('data')            
+            ->statePath('data')
             ->model($this->record);
     }
 

@@ -1,10 +1,8 @@
 <div>
     <x-layouts.app.breadcrumb :links="$breadcrumb" />
-    <h2 class=" text-xl font-bold text-gray-900 dark:text-white">{{ __('Kemaskini Kalendar Aktiviti') }}</h2>
+    <x-ui.page-title>{{ __('Kemaskini Kalendar Aktiviti') }}</x-ui.page-title>
 
-    <div
-        class="p-6 mt-5 max-w-4xl bg-white border border-gray-200 rounded-lg  shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
-
+    <x-ui.section class="max-w-4xl p-6">
         <form wire:submit="edit">
             {{ $this->form }}
 
@@ -17,5 +15,5 @@
 
         </form>
         <x-filament-actions::modals />
-    </div>
+    </x-ui.section>
 </div>

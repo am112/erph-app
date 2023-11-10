@@ -37,16 +37,8 @@ class ListCourse extends Component implements HasForms, HasTable {
     public function breadcrumb() : array
     {
         return [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $this->semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('Rancangan Pelajaran'),
-                'href' => '',
-                'icon' => '',
-            ],
+            route('dashboard', $this->semester) => __('Halaman Utama'),
+            '' => __('Rancangan Pelajaran'),
         ];
     }
 

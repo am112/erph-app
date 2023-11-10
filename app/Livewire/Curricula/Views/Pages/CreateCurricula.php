@@ -29,7 +29,7 @@ class CreateCurricula extends Component implements HasForms {
 
     public function render(): View
     {
-        
+
 
         return view('pages.curriculum.create-curricula', [
             'breadcrumb' => $this->breadcrumb(),
@@ -39,21 +39,9 @@ class CreateCurricula extends Component implements HasForms {
     public function breadcrumb() : array
     {
         return [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $this->semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('Kalendar Aktiviti'),
-                'href' => route('curriculum.index', $this->semester),
-                'icon' => 'heroicon-s-calendar-days',
-            ],
-            [
-                'name' => __('Tambah'),
-                'href' => '',
-                'icon' => '',
-            ],
+            route('dashboard', $this->semester) => __('Halaman Utama'),
+            route('curriculum.index', $this->semester) => __('Kalendar Aktiviti'),
+            '' => __('Tambah'),
         ];
     }
 

@@ -1,12 +1,7 @@
 <div>
     <x-layouts.app.breadcrumb :links="$breadcrumb" />
-
+    <x-ui.page-title>{{ __('Ahli Jawatankuasa') }}</x-ui.page-title>
     <div>
-        <div class="flex justify-between items-center text-center mb-5">
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Ahli Jawatankuasa') }}</h2>
-        </div>
-        <div>
-            {{ $this->table }}
-        </div>
+        {{ $this->table }}
     </div>
 </div>

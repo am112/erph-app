@@ -38,16 +38,8 @@ class ListStudent extends Component implements HasForms, HasTable
     public function breadcrumb() : array
     {
         return [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $this->semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('Maklumat Kanak Kanak'),
-                'href' => '',
-                'icon' => '',
-            ],
+            route('dashboard', $this->semester) => __('Halaman Utama'),
+            '' => __('Kanak Kanak'),
         ];
     }
 
@@ -59,7 +51,7 @@ class ListStudent extends Component implements HasForms, HasTable
             ->columns(StudentResource::getTableColumns())
             ->filters([
                 //
-            ])            
+            ])
             ->headerActions([
                 CreateAction::make()
                     ->label('Tambah')
@@ -71,7 +63,7 @@ class ListStudent extends Component implements HasForms, HasTable
                     ->mutateFormDataUsing(function (array $data): array {
                         $data['user_id'] = auth()->id();
                         $data['semester_id'] = $this->semester->id;
-                        $data['total'] = StudentResource::calculateSum(StudentResource::COLUMN_YEAR, $data);                    
+                        $data['total'] = StudentResource::calculateSum(StudentResource::COLUMN_YEAR, $data);
                         return $data;
                     }),
             ])
@@ -82,13 +74,13 @@ class ListStudent extends Component implements HasForms, HasTable
                     ->modalSubmitActionLabel('Simpan')
                     ->form(StudentResource::getFormColumns())
                     ->closeModalByClickingAway(false)
-                    ->mutateRecordDataUsing(function (array $data): array {                    
-                        $data['total_by_year'] = StudentResource::calculateSum(StudentResource::COLUMN_YEAR, $data);                    
+                    ->mutateRecordDataUsing(function (array $data): array {
+                        $data['total_by_year'] = StudentResource::calculateSum(StudentResource::COLUMN_YEAR, $data);
                         $data['total_by_race'] = StudentResource::calculateSum(StudentResource::COLUMN_RACE, $data);;
                         return $data;
                     })
                     ->mutateFormDataUsing(function (array $data): array {
-                        $data['total'] = StudentResource::calculateSum(StudentResource::COLUMN_YEAR, $data);                    
+                        $data['total'] = StudentResource::calculateSum(StudentResource::COLUMN_YEAR, $data);
                         return $data;
                     }),
                 DeleteAction::make()

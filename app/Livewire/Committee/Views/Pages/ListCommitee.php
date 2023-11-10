@@ -36,16 +36,8 @@ class ListCommitee extends Component implements HasForms, HasTable {
     public function breadcrumb() : array
     {
         return [
-            [
-                'name' => __('Halaman Utama'),
-                'href' => route('dashboard', $this->semester),
-                'icon' => 'heroicon-s-home',
-            ],
-            [
-                'name' => __('Ahli Jawatankuasa'),
-                'href' => '',
-                'icon' => '',
-            ],
+            route('dashboard', $this->semester) => __('Halaman Utama'),
+            '' => __('Ahli Jawatankuasa'),
         ];
     }
 
@@ -68,7 +60,7 @@ class ListCommitee extends Component implements HasForms, HasTable {
                 })
                 ->after(function(Component $livewire){
                     $livewire->dispatch('toast', message: 'Data berjaya dikemaskini', data: ['position' => 'top-right', 'type' => 'success']);
-                }), 
+                }),
             ])
             ->actions([
                 EditAction::make()
@@ -77,7 +69,7 @@ class ListCommitee extends Component implements HasForms, HasTable {
                     ->form(CommitteeResource::getFormColumns())
                     ->after(function(Component $livewire){
                         $livewire->dispatch('toast', message: 'Data berjaya dikemaskini', data: ['position' => 'top-right', 'type' => 'success']);
-                    }),                    
+                    }),
                 DeleteAction::make()
                     ->label('')
                     ->modalHeading('Padam AJK')

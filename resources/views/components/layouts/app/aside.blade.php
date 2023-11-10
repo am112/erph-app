@@ -1,18 +1,9 @@
 <aside
-    class="fixed top-0 left-0 z-40 w-64 h-screen pt-3 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+    class="fixed top-0 left-0 z-40 md:z-30 w-64 h-screen pt-3 transition-transform -translate-x-full bg-white md:bg-transparent  md:translate-x-0 dark:bg-gray-800 md:dark:bg-transparent"
     aria-label="Sidenav" id="drawer-navigation">
-    <a href="/" class=" mx-4 flex items-center justify-between mr-4">
-        {{-- <img
-                src="https://flowbite.s3.amazonaws.com/logo.svg"
-                class="mr-3 h-8"
-                alt="Flowbite Logo"
-              /> --}}
-        <span
-            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{{ config('app.name') }}</span>
-    </a>
-    <div class="overflow-y-auto py-8 px-3 h-full bg-white dark:bg-gray-800">
+    <div class="overflow-y-auto py-16 px-3 h-full dark:bg-gray-800 md:dark:bg-transparent">
         <div class="pb-5 mb-0">
-            <livewire:semester-select :semester="request()->semester?->id ?? App\Models\Semester::active()->first()->id" />
+            <livewire:semester-select :semester="request()->semester?->id ?? App\Models\Semester::active()->first()->id" routeName="{{ request()->path() }}" lazy />
         </div>
         <ul class="space-y-2">
             @php
@@ -102,13 +93,13 @@
                         <div class="my-5 space-y-2 border-t border-gray-200 dark:border-gray-700"></div>
                     @endisset
                     @php
-                        $activeClass = strpos(Route::currentRouteName(), $route['routeName']) !== false ? 'text-primary-600 bg-gray-100 dark:bg-gray-700' : 'text-gray-600';
+                        $activeClass = strpos(Route::currentRouteName(), $route['routeName']) !== false ? 'text-primary-500 bg-gray-100 dark:bg-gray-800' : 'text-gray-600 dark:text-gray-500';
                     @endphp
                     <li>
                         <a href="{{ $route['link'] }}"
-                            class="flex items-center p-2 text-base font-medium {{ $activeClass }} rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            class="flex items-center p-2 text-base font-medium {{ $activeClass }} rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 group">
                             @svg($route['icon'], [
-                                'class' => 'w-6 h-6 {{ $activeClass }} transition duration-75 dark:text-gray-400 group-hover:text-primary-500 dark:group-hover:text-white',
+                                'class' => 'w-6 h-6 text-gray-500 transition duration-75',
                             ])
                             <span class="ml-3">{{ $route['name'] }}</span>
                         </a>
@@ -118,30 +109,34 @@
                         @php
                             $subItemsRouteName = collect($route['subitems'])->pluck('routeName');
                         @endphp
-                        <button type="button"
-                            class="flex items-center p-2 w-full text-base font-medium text-gray-600 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                            aria-controls="dropdown-pages-{{ $loop->index }}"
-                            data-collapse-toggle="dropdown-pages-{{ $loop->index }}">
+                        <div class="flex items-center p-2 w-full text-base font-medium text-gray-600">
                             @svg($route['icon'], [
-                                'class' => 'w-6 h-6 {{ $activeClass }} transition duration-75 dark:text-gray-400 group-hover:text-primary-500 dark:group-hover:text-white',
+                                'class' => 'w-6 h-6 text-gray-500 transition duration-75',
                             ])
                             <span class="flex-1 ml-3 text-left whitespace-nowrap">{{ $route['name'] }}</span>
+                        </div>
+                        {{-- <button type="button"
+                            class="flex items-center p-2 w-full text-base font-medium text-gray-600 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-gray-500 dark:hover:bg-gray-800"
+                            aria-controls="dropdown-pages-{{ $loop->index }}"
+                            data-collapse-toggle="dropdown-pages-{{ $loop->index }}">
+
+
                             <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                        </button>
-                        <ul id="dropdown-pages-{{ $loop->index }}"
-                            class="{{ strpos(Route::currentRouteName(), $route['routeName']) !== false ? '' : 'hidden' }} py-2 space-y-2">
+                        </button> --}}
+                        <ul id="dropdown-pages-{{ $loop->index }}" class="py-2 space-y-2">
+                            {{-- class="{{ strpos(Route::currentRouteName(), $route['routeName']) !== false ? '' : 'hidden' }} py-2 space-y-2"> --}}
                             @foreach ($route['subitems'] as $subRoute)
                                 @php
-                                    $activeClass = strpos(Route::currentRouteName(), $subRoute['routeName']) !== false ? 'text-primary-600 bg-gray-100 dark:bg-gray-700' : 'text-gray-600';
+                                    $activeClass = strpos(Route::currentRouteName(), $subRoute['routeName']) !== false ? 'text-primary-500 bg-gray-100 dark:bg-gray-800' : 'text-gray-600 dark:text-gray-500';
                                 @endphp
                                 <li>
                                     <a href="{{ $subRoute['link'] }}"
-                                        class="flex items-center p-2 pl-11 w-full text-base font-medium {{ $activeClass }} rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                        class="flex pl-11 items-center p-2 text-base font-medium {{ $activeClass }} rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 group">
                                         {{ $subRoute['name'] }}
                                     </a>
                                 </li>

@@ -3,16 +3,18 @@
 namespace App\Livewire\School\Views\Resources;
 
 use App\Models\Region;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Get;
 
 class SchoolResource
 {
-    public static function getFormColumns(): array 
+    public static function getFormColumns(): array
     {
         return [
             Group::make()->schema([
