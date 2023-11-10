@@ -15,7 +15,7 @@
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead
-                    class="text-sm font-semibold text-gray-900 bg-gray-50 dark:bg-white/5 dark:text-gray-400 border-b border-gray-200">
+                    class="text-sm font-semibold text-gray-900 bg-gray-50 dark:bg-white/5 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             Tarikh
@@ -28,11 +28,15 @@
                 <tbody>
                     @forelse($this->timetables->pluck('date_at')->unique() as $date)
                         <tr
-                            class="bg-white @if (!$loop->last) border-b @endif dark:bg-gray-900 dark:border-gray-700">
+                            class="bg-white @if (!$loop->last) border-b border-gray-200 dark:border-gray-700 @endif dark:bg-gray-900">
                             <th scope="row"
                                 class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap dark:text-gray-400">
-                                <a
-                                    href="{{ route('rph.timetable.summaries', ['semester' => $semester, 'rph' => $rph, 'date_at' => $date]) }}">{{ $date }}</a>
+                                <div>
+                                    <a class="hover:text-primary-500"
+                                        href="{{ route('rph.timetable.summaries', ['semester' => $semester, 'rph' => $rph, 'date_at' => $date]) }}">{{ $date }}</a>
+                                    <div class="text-sm text-gray-600 font-normal">
+                                        {{ Carbon\Carbon::parse($date)->translatedFormat('l') }}</div>
+                                </div>
                             </th>
                             @foreach ($this->timetables->where('date_at', $date) as $column)
                                 <td class="px-6 py-4">

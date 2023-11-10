@@ -69,7 +69,7 @@
                         ],
                     ],
                     [
-                        'name' => __('Rancangan Pelajaran'),
+                        'name' => __('Rancangan Tahunan'),
                         'link' => route('courses.index', ['semester' => request()->semester]),
                         'routeName' => 'courses',
                         'icon' => 'heroicon-m-academic-cap',
@@ -77,7 +77,7 @@
                     ],
                     [
                         'divider' => true,
-                        'name' => __('RPH'),
+                        'name' => __('Rancangan Harian'),
                         'link' => route('rph.index', ['semester' => request()->semester]),
                         'routeName' => 'rph',
                         'icon' => 'heroicon-o-document-plus',

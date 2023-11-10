@@ -14,10 +14,10 @@
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-300">
                 <thead style="top: 0; position:stick; "
-                    class="bg-gray-50 dark:bg-white/5 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    class="bg-gray-50 dark:bg-gray-800 text-sm font-semibold text-gray-700 dark:text-gray-300">
                     <tr>
                         <th style="position: sticky; left:0; " scope="col"
-                            class="px-6 py-3 dark:text-gray-300 bg-gray-50 dark:bg-white/5">
+                            class="px-6 py-3 dark:text-gray-300 bg-gray-50 dark:bg-gray-800">
                             {{ __('Aktiviti Kokurikulum') }}
                         </th>
                         @foreach ($this->weeks as $week)
@@ -31,9 +31,9 @@
                     @foreach ($this->curriculum as $item)
                         @if ($item->is_subitem)
                             <tr style="position: relative;"
-                                class="bg-white border-b dark:bg-white/5 dark:border-gray-700">
+                                class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                                 <th style="position: sticky; left:0;" scope="row"
-                                    class="px-6 py-4 font-medium text-gray-700 whitespace-nowrap dark:text-gray-300 bg-gray-50 dark:bg-white/5 ">
+                                    class="px-6 py-4 font-medium text-gray-700 whitespace-nowrap dark:text-gray-300 bg-gray-50 dark:bg-gray-800 ">
                                     <span class=" pl-5">{{ $item['name'] }}</span>
                                 </th>
                                 @foreach ($this->weeks as $week)
@@ -61,7 +61,7 @@
                             <tr style="position: relative;"
                                 class="bg-gray-50 border-b dark:bg-white/5 dark:border-gray-700">
                                 <th style="position:sticky; left:0;" scope="row"
-                                    class="px-6 py-4 font-semibold text-gray-700 whitespace-nowrap dark:text-gray-300 bg-gray-50 dark:bg-white/5 max-w-md">
+                                    class="px-6 py-4 font-semibold text-gray-700 whitespace-nowrap dark:text-gray-300 bg-gray-50 dark:bg-gray-800 max-w-md">
                                     @php
                                         $headerCount += 1;
                                     @endphp
@@ -69,7 +69,7 @@
                                         {{ $item['name'] }}</span>
                                 </th>
                                 @foreach ($this->weeks as $week)
-                                    <th scope="col" class=" bg-gray-50 dark:bg-white/5"></th>
+                                    <th scope="col" class=" bg-gray-50 dark:bg-gray-800"></th>
                                 @endforeach
                             </tr>
                         @endif

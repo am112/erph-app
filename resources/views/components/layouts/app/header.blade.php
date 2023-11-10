@@ -1,4 +1,4 @@
-<nav class="bg-white pl-6 pr-8 py-3 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-30 md:z-40">
+<nav class="bg-white pl-4 pr-8 py-3 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-30 md:z-40">
     <div class="flex flex-wrap justify-between items-center">
         <div class="flex justify-start items-center">
             <button data-drawer-target="drawer-navigation" data-drawer-toggle="drawer-navigation"

@@ -4,7 +4,7 @@
         <div class="flex items-center justify-between">
             <span>{{ $rph->week->name }}</span>
             <span>Tarikh: {{ $date_at->format('d/m/Y') }}</span>
-            <span>Hari: {{ $date_at->format('l') }}</span>
+            <span>Hari: {{ $date_at->translatedFormat('l') }}</span>
         </div>
     </x-ui.page-title>
     <div>

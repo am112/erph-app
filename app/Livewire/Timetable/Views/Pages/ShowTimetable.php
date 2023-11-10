@@ -50,7 +50,7 @@ class ShowTimetable extends Component implements HasForms, HasTable
             route('dashboard', $this->semester) => __('Halaman Utama'),
             route('rph.index', $this->semester) => __('RPH'),
             route('rph.timetable.index', ['semester' => $this->semester, 'rph' => $this->rph]) => __('Jadual'),
-            '' => __($this->date_at->format('d/m/Y (l)')),
+            '' => __($this->date_at->translatedFormat('d/m/Y (l)')),
         ];
     }
 
