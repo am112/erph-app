@@ -129,14 +129,14 @@ class StudentResource{
                         TextInput::make('male_four')
                         ->label('4 Tahun - L')
                         ->numeric()
-                        ->live()
+                        ->live(onBlur: true)
                         ->afterStateUpdated(function(Set $set, Get $get){
                             $set('total_by_year', Self::calculateSum(self::COLUMN_YEAR, $get));
                         }),
                         TextInput::make('female_four')
                             ->label('4 Tahun - P')
                             ->numeric()
-                            ->live()
+                            ->live(onBlur: true)
                             ->afterStateUpdated(function(Set $set, Get $get){
                                 $set('total_by_year', Self::calculateSum(self::COLUMN_YEAR, $get));
                             }),
@@ -146,13 +146,13 @@ class StudentResource{
                     Grid::make(2)->schema([
                         TextInput::make('male_five')
                         ->label('5 Tahun - L')
-                        ->numeric()->live()
+                        ->numeric()->live(onBlur: true)
                         ->afterStateUpdated(function(Set $set, Get $get){
                             $set('total_by_year', Self::calculateSum(self::COLUMN_YEAR, $get));
                         }),
                         TextInput::make('female_five')
                         ->label('5 Tahun - P')
-                            ->numeric()->live()
+                            ->numeric()->live(onBlur: true)
                             ->afterStateUpdated(function(Set $set, Get $get){
                                 $set('total_by_year', Self::calculateSum(self::COLUMN_YEAR, $get));
                             }),
@@ -168,7 +168,7 @@ class StudentResource{
                         }),
                         TextInput::make('female_six')
                         ->label('6 Tahun - P')
-                        ->numeric()->live()
+                        ->numeric()->live(onBlur: true)
                         ->afterStateUpdated(function(Set $set, Get $get){
                             $set('total_by_year', Self::calculateSum(self::COLUMN_YEAR, $get));
                         }),
@@ -182,12 +182,12 @@ class StudentResource{
                     Group::make()->schema([
                         Grid::make(2)->schema([
                             TextInput::make('melayu')
-                            ->numeric()->live()
+                            ->numeric()->live(onBlur: true)
                             ->afterStateUpdated(function(Set $set, Get $get){
                                 $set('total_by_race', Self::calculateSum(self::COLUMN_RACE, $get));
                             }),
                         TextInput::make('cina')
-                            ->numeric()->live()
+                            ->numeric()->live(onBlur: true)
                             ->afterStateUpdated(function(Set $set, Get $get){
                                 $set('total_by_race', Self::calculateSum(self::COLUMN_RACE, $get));
                             }),
@@ -196,12 +196,12 @@ class StudentResource{
                     Group::make()->schema([
                         Grid::make(2)->schema([
                             TextInput::make('india')
-                            ->numeric()->live()
+                            ->numeric()->live(onBlur: true)
                             ->afterStateUpdated(function(Set $set, Get $get){
                                 $set('total_by_race', Self::calculateSum(self::COLUMN_RACE, $get));
                             }),
                         TextInput::make('others')
-                        ->numeric()->live()
+                        ->numeric()->live(onBlur: true)
                         ->afterStateUpdated(function(Set $set, Get $get){
                             $set('total_by_race', Self::calculateSum(self::COLUMN_RACE, $get));
                         }),

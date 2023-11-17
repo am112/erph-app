@@ -35,7 +35,7 @@ class ShowTimetable extends Component implements HasForms, HasTable
         $this->semester = $semester;
         $this->rph = $rph;
         $this->date_at = Carbon::parse($date_at);
-        $this->record = TimetableSummary::where('rph_id', $this->rph->id)->where('date_at', $this->date_at)->first();
+        $this->record = TimetableSummary::where('rph_id', $this->rph->id)->where('date_at', $this->date_at->format('Y-m-d'))->first();
         $this->form->fill($this->record === null ? [] : $this->record->attributesToArray());
     }
     public function render()
@@ -81,27 +81,32 @@ class ShowTimetable extends Component implements HasForms, HasTable
             ->schema([
 
                 TextInput::make('student_reflect')
+                    ->required()
                     ->maxLength(255),
                 TextInput::make('teacher_reflect')
+                    ->required()
                     ->maxLength(255),
                 TextInput::make('supervisor_name')
+                 ->required()
                     ->maxLength(255),
                 TextInput::make('supervisor_position')
+                    ->required()
                     ->maxLength(255),
                 TextInput::make('supervisor_remark')
+                    ->required()
                     ->maxLength(255),
 
                 TextInput::make('other')
                     ->maxLength(255),
             ])
             ->statePath('data')
-            ->model(TimetableSummary::class);
+            ->model($this->record ?? TimetableSummary::class);
     }
 
     public function update(){
         $data = $this->form->getState();
         if($this->record === null){
-            $data['date_at'] = $this->date_at;
+            $data['date_at'] = $this->date_at->format('Y-m-d');
             $data['user_id'] = auth()->user()->id;
             $data['semester_id'] = $this->semester->id;
             $data['rph_id'] = $this->rph->id;
@@ -109,6 +114,6 @@ class ShowTimetable extends Component implements HasForms, HasTable
         }else{
             $this->record->update($data);
         }
-
+        $this->dispatch('toast', message: 'Data berjaya dikemaskini.', data: ['position' => 'top-right', 'type' => 'success']);
     }
 }

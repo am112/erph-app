@@ -12,7 +12,7 @@
                 Tambah
             </x-filament::button>
         </div>
-        <div class="relative overflow-x-auto">
+        <div class="relative overflow-x-auto pb-2">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead
                     class="text-sm font-semibold text-gray-900 bg-gray-50 dark:bg-white/5 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
@@ -72,4 +72,6 @@
             </table>
         </div>
     </x-ui.section>
+
+    <livewire:timetable-analyst :data="$this->timetables" />
 </div>
